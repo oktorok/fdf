@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/26 01:23:19 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/26 20:24:58 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ int	key_event(int code, void *param)
 int	main(void)
 {
 	t_mlx	*mlx;
-	void	*ptr_mlx;
-	void	*win_mlx;
-	int		*pixel;
+	int		i;
 
-	pixel = ft_lector("test.caca");
-	ft_putstr("SALI");
-	while (*pixel != -1)
+	i = 0;
+	mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx));
+	mlx->pixel = ft_lector("test");
+	//////////////////////////////////
+	while (mlx->pixel[i] != -1)
 	{
-		ft_printf("<%i>",*pixel++);
-		if (*pixel == -2)
+		if (mlx->pixel[i] == -2)
 			ft_putchar('\n');
+		else
+			ft_printf("<%i>",mlx->pixel[i]);
+		i++;
 	}
-/*	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	//////////////////////////////////
 	mlx->ptr = mlx_init();
-	mlx->win = ft_open_window(mlx->ptr, 1000, 1000, "POLLA");
+	mlx->win = ft_open_window(mlx);
 	mlx_key_hook(mlx->win, key_event, (void*)mlx);
-	mlx_loop(mlx->ptr);*/
+	mlx_loop(mlx->ptr);
 	return (0);
 }

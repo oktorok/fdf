@@ -6,13 +6,32 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 02:13:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/26 01:23:17 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:51:20 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		length_pixel(int *pixel)
+int			check_file(int *pixel)
+{
+	int colum;
+	int i;
+
+	colum = 0;
+	i = 0;
+	while (pixel[colum] != -2)
+		colum++;
+	i = 0;
+	while (pixel[i] != -1)
+	{
+		if (pixel[i] == -2 && (i + 1) % (colum + 1))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int			length_pixel(int *pixel)
 {
 	int length;
 
@@ -25,7 +44,7 @@ int		length_pixel(int *pixel)
 	return (length);
 }
 
-void	reallocpixels(int num, int **pixel)
+void		reallocpixels(int num, int **pixel)
 {
 	int		*new_pixel;
 	int		length;
@@ -41,7 +60,7 @@ void	reallocpixels(int num, int **pixel)
 	*pixel = new_pixel;
 }
 
-void	build_pixels(char *line, int **pixel)
+void		build_pixels(char *line, int **pixel)
 {
 	char *tmp;
 
@@ -52,12 +71,11 @@ void	build_pixels(char *line, int **pixel)
 		while (*tmp == ' ')
 			tmp++;
 		reallocpixels(ft_atoi(tmp), pixel);
-		
 	}
 	reallocpixels(-2, pixel);
 }
 
-int *ft_lector(char *filename)
+int			*ft_lector(char *filename)
 {
 	int		fd;
 	char	**line;
@@ -78,10 +96,10 @@ int *ft_lector(char *filename)
 		else if (!flag)
 			break ;
 		build_pixels(*line, &pixel);
- 		ft_strdel(line);
+		ft_strdel(line);
 	}
 	free(line);
-//	if (!check_file(pixel))
-//		ft_error("Wrong format file input");
+	if (!check_file(pixel))
+		ft_error("Wrong format file input");
 	return (pixel);
 }

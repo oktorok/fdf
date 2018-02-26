@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 21:27:02 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 21:42:01 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:23:45 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_error(char *err)
 {
 	if (!err)
-		perror(strerror(errno));
-	else
 		perror(err);
-	exit(errno);
+	else
+		ft_putstr_fd(err, 2);
+	exit(1);
 }

@@ -6,12 +6,12 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 01:03:58 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 01:50:40 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/26 19:57:39 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define POINT_SIZE 5
+#define POINT_SIZE 2
 
 void	ft_point(int x, int y, void *mlx, int col)
 {

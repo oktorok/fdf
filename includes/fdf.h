@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 22:20:49 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/26 19:57:21 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 #include <math.h>
 #include <mlx.h>
 #include <errno.h>
-#define PONT_SIZE 5
+#define PONT_SIZE 2
 typedef struct	s_mlx
 {
 	void		*ptr;
 	void		*win;
+	int			*pixel;
 }				t_mlx;
 
 typedef struct	s_point
@@ -36,7 +37,7 @@ typedef struct	s_point
 
 void	ft_draw_line(t_point p1, t_point p2, void *mlx);
 t_point ft_newpoint(int x, int y);
-void	*ft_open_window(void *mlx, size_t x, size_t y, char *title);
+void	*ft_open_window(t_mlx *mlx);
 int		ft_draw(void *mlx, int code);
 int		ft_mouse_draw(int x, int y, void *mlx);
 int		ft_wall(void *mlx, int color);
