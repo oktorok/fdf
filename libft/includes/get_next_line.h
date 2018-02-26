@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw.c                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/11 11:44:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 02:12:12 by jagarcia         ###   ########.fr       */
+/*   Created: 2017/11/30 12:49:31 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/02/26 00:39:41 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include "libft.h"
+# define BUFF_SIZE 1024
+# define NEW(x) ft_strnew(x)
+# define LINE_SIMBOL '\n'
+# include <fcntl.h>
 
-int	ft_draw(void *mlx, int code)
+int					get_next_line(const int fd, char **line);
+typedef struct		s_fd
 {
-	t_point p1;
-	t_point p2;
+	int				fd;
+	char			*buffer;
+	struct s_fd		*next;
+}					t_fd;
 
-	p1 = ft_newpoint(400,450);
-	p2 = ft_newpoint(350,400);
-	ft_draw_line(p1, p2, mlx);
-	return (1);
-}
+#endif

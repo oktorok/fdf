@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_point.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 12:49:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/19 15:22:06 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/02/25 01:03:58 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/02/25 01:50:40 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft.h"
-# define BUFF_SIZE 10
-# define NEW(x) ft_strnew(x)
-# define LINE_SIMBOL '\n'
-# include <fcntl.h>
+#include "fdf.h"
+#define POINT_SIZE 5
 
-int					get_next_line(const int fd, char **line);
-typedef struct		s_fd
+void	ft_point(int x, int y, void *mlx, int col)
 {
-	int				fd;
-	char			*buffer;
-	struct s_fd		*next;
-}					t_fd;
+	int i;
+	int j;
 
-#endif
+	i = x - POINT_SIZE;
+	while (i < x + POINT_SIZE)
+	{
+		j = y - POINT_SIZE;
+		while (j < y + POINT_SIZE)
+		{
+			mlx_pixel_put(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win, i, j, col);
+			j++;
+		}
+		i++;
+	}
+}

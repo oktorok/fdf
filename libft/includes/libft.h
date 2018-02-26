@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:15:11 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/19 18:09:37 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/25 22:28:38 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <errno.h>
+# include <stdio.h>
 # include "get_next_line.h"
-# include "ft_printf/includes/libftprintf.h"
+# include "../ft_printf/includes/libftprintf.h"
 typedef struct		s_list
 {
 	void			*content;
@@ -106,4 +108,5 @@ char				*ft_strinsertfree(char *dst, char *str, int pos);
 char				*ft_strcut(char *str, int start, int end);
 char				*ft_strcutfree(char *str, int start, int end);
 char				*ft_strinvert(const char *str);
+void				ft_error(char *err);
 #endif

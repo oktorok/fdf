@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw.c                                          :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/11 11:44:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 02:12:12 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/02/25 21:27:02 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/02/25 21:42:01 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	ft_draw(void *mlx, int code)
+void	ft_error(char *err)
 {
-	t_point p1;
-	t_point p2;
-
-	p1 = ft_newpoint(400,450);
-	p2 = ft_newpoint(350,400);
-	ft_draw_line(p1, p2, mlx);
-	return (1);
+	if (!err)
+		perror(strerror(errno));
+	else
+		perror(err);
+	exit(errno);
 }

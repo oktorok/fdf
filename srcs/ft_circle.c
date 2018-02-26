@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw.c                                          :+:      :+:    :+:   */
+/*   ft_circle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/11 11:44:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 02:12:12 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/02/25 01:03:58 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/02/25 02:12:07 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int	ft_draw(void *mlx, int code)
+#define RADI 3
+void ft_circle(int x, int y, void *mlx, int color)
 {
-	t_point p1;
-	t_point p2;
+	int i;
+	int j;
 
-	p1 = ft_newpoint(400,450);
-	p2 = ft_newpoint(350,400);
-	ft_draw_line(p1, p2, mlx);
-	return (1);
+	i = x - RADI;
+	while (i < x + RADI)
+	{
+		j = y - RADI;
+		while (j < y + RADI)
+		{
+			if (pow(i - x, 2) + pow(j - y, 2) <= RADI)
+				mlx_pixel_put(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win, i, j, color);
+			j++;
+		}
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/02/19 19:53:51 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/02/25 22:01:52 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ MAIN_FUNCS = ft_open_window.c \
 			 ft_draw.c \
 			 ft_draw_line.c \
 			 ft_newpoint.c \
+			 ft_point.c \
+			 ft_circle.c \
+			 ft_lector.c \
 			 main.c
 
 LIBFT_NAME = libft.a

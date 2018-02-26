@@ -1,0 +1,9 @@
+1. Al parecer hay que recorrer primero el archivo para que todas las lineas tengan el mismo tamanyo,  en caso de error imprimir un error y se acabo.
+
+2. Lo unico preocupante del archivo es que haya las mismas columnas en todas las filas independiente mente de los caracteres que haya una columna es todo aquello entre espacios y principio final de linea.
+
+3. una vez comprobado que el archivo es correcto volverlo a abrir y empezar a dibujar
+
+4. el punto sera (fila, columna) y la magnitud un simple atoi
+
+5. La primera idea para hacer el proyecto es guardar de 2 en 2 filas e ir imprimiendoun punto con el punto siguiente d ela misma fila y con el punto de la misma columna de la fila anterior.

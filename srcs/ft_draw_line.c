@@ -6,20 +6,18 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 16:57:26 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/23 21:46:40 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/02/25 01:54:35 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void point(double x, double y, void *mlx, int color);
-
 void ft_draw_line(t_point p1, t_point p2, void *mlx)
 {
-    double	pendant;
+    int	pendant;
 	t_point	tmp;
-    double	x;
-	double	y;
+    int		x;
+	int		y;
 
 	if (p1.x < p2.x)
 	{
@@ -32,8 +30,10 @@ void ft_draw_line(t_point p1, t_point p2, void *mlx)
 	while (x < p1.x)
 	{
 		y = (p2.y + pendant * (x - p2.x));
-//	mlx_pixel_put(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win, x, y, 0xFFFFFF);
-		point(x, y, mlx, 0xFFFFFF);
+		if (p1.x == 450)
+			ft_point(x, y, mlx, 0xFFFFFF);
+		else
+			ft_circle(x, y, mlx, 0xFFFFFF);
 		x++;
 	}
 	return ;
