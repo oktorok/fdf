@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_point.c                                         :+:      :+:    :+:   */
+/*   ft_pendant.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/25 01:03:58 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/03 20:58:13 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/03/04 01:32:18 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/03/04 01:34:19 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define POINT_SIZE 1
 
-void	ft_point(t_point point, void *mlx, int col)
+double	ft_pendant(t_point p1, t_point p2)
 {
-	int i;
-	int j;
+	double dif_y;
+	double dif_x;
 
-	i = point.x - POINT_SIZE;
-	while (i < point.x + POINT_SIZE)
-	{
-		j = point.y - POINT_SIZE;
-		while (j < point.y + POINT_SIZE)
-		{
-			mlx_pixel_put(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win, i, j, col);
-			j++;
-		}
-		i++;
-	}
+	dif_y = (double)p2.y - (double)p1.y;
+	dif_x = (double)p2.x - (double)p1.x;
+	return (dif_y / dif_x);
 }

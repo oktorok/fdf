@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_line_eq.c                                       :+:      :+:    :+:   */
+/*   ft_line.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 16:57:26 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/26 17:44:45 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/05 05:14:09 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,65 @@ static void	draw_colum(t_point p1, t_point p2, void *mlx)
 	int		x;
 	int		y;
 
-	y = p2.y;
+	y = -p2.y;
 	x = p1.x;
-	while (y < p1.y)
+	while (y < -p1.y)
 	{
-		ft_point(x, y, mlx, 0xFFFFFF);
+		ft_point(ft_newpoint(x, y), mlx, 0xFFFFFF);
 		y++;
 	}
 	return ;
 }
 
-void		ft_draw_line(t_point p1, t_point p2, void *mlx)
+static void vertical_draw(t_point p1, t_point p2, void *mlx)
 {
-    int	pendant;
+	int x;
+	int y;
+	t_point tmp;
+
+	if (p2.y < p1.y)
+	{
+		tmp = ft_newpoint(p1.x, p1.y);
+		p1 = ft_newpoint(p2.x, p2.y);
+		p2 = ft_newpoint(tmp.x, tmp.y);
+	}
+	y = p1.y;
+	while (y < p2.y)
+	{
+		x = ((y - p2.y) / ft_pendant(p1, p2)) + p2.x;
+		ft_point(ft_newpoint(x, -y), mlx, 0xFFFFFF);
+		y++;
+	}
+}
+void		ft_line(t_point p1, t_point p2, void *mlx)
+{
 	t_point	tmp;
     int		x;
 	int		y;
 
+	p1.y = -p1.y;
+	p2.y = -p2.y;
+	if (labs(p1.x - p2.x) < labs(p1.y - p2.y))
+	{
+		vertical_draw(p1, p2, mlx);
+		return ;
+	}
 	if (p1.x < p2.x)
 	{
 		tmp = ft_newpoint(p1.x, p1.y);
 		p1 = ft_newpoint(p2.x, p2.y);
 		p2 = ft_newpoint(tmp.x, tmp.y);
 	}
-	else if (p1.x == p2.x)
+	if (p1.x == p2.x)
 	{
 		draw_colum(p1, p2, mlx);
 		return ;
 	}
-	pendant =  (p1.y - p2.y) / (p1.x - p2.x);
 	x = p2.x;
 	while (x < p1.x)
 	{
-		y = (p2.y + pendant * (x - p2.x));
-		ft_point(x, y, mlx, 0xFFFFFF);
+		y = ft_equline(p1, ft_pendant(p1, p2), x);
+		ft_point(ft_newpoint(x, -y), mlx, 0xFFFFFF);
 		x++;
 	}
 	return ;

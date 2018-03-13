@@ -5,64 +5,112 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/11 11:44:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/26 20:24:55 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/03/02 01:57:22 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/03/06 03:05:37 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define DESF 50
-int	ft_draw(void *mlx, int code)
-{
-	int *pix;
-	int colum;
-	int row;
-	int i;
-	t_point p1;
-	t_point p2;
-	t_point	desfase;
 
-	i = 0;
-	colum = 1;
-	pix = (((t_mlx *)mlx)->pixel);
-	while (pix[i++] != -2)
-			colum++;
-	row = 1;
-	while (pix[i] != -1)
+static void draw_y(void *mlx, t_point *extrems, t_point origen, int max)
+{
+	int i;
+	int j;
+	int *pixel;
+	t_point *tmp_pnt;
+
+	tmp_pnt = (t_point *)ft_memalloc(sizeof(t_point) * 3);
+	pixel = ((t_mlx *)mlx)->pixel;
+	i = -1;
+	while (++i < pixel[1])
 	{
-		if (pix[i++] == -2)
-			row++;
-	}
-	i = 0;
-	desfase = ft_newpoint(100, 100);
-	ft_printf("FILAS: %i\nCOLUMNAS: %i\n", row, colum);
-	while (pix[i] != -1)
-	{
-		if (pix[i] != -2)
+		j = i + 2;
+		tmp_pnt[0] = ft_newpoint(origen.x + max * i, ft_equline(origen,
+					ft_pendant(origen, extrems[1]), origen.x + max * i));
+		tmp_pnt[1] = ft_newpoint(tmp_pnt[0].x, tmp_pnt[0].y - pixel[j]);
+		while (tmp_pnt[1].x != origen.x + max * i - (pixel[0] - 1) * max)
 		{
-			p1 = ft_newpoint((DESF * ((i % colum) + 1)) + desfase.x, (DESF * ((i / colum) + 1)) + desfase.y);
-			if (i / colum)
-			{
-				p2 = ft_newpoint((DESF * ((i % colum) + 1)) + desfase.x, (DESF * (i / colum)) + desfase.y);
-				ft_draw_line(p1, p2, mlx);
-			}
-			i++;
-			if (pix[i] != -2)
-			{
-				p2 = ft_newpoint(DESF * ((i % colum) + 1) + desfase.x, (DESF * ((i / colum) + 1)) + desfase.y);
-				ft_draw_line(p1, p2, mlx);
-			}
-			else
-				ft_point(p1.x, p1.y, mlx, 0xffffff);
-		}
-		else
-		{
-		//	desfase.x -=10;
-		//	desfase.y -= 5;
-			i++;
+			tmp_pnt[2] = ft_newpoint(tmp_pnt[1].x - max, ft_equline(tmp_pnt[0],
+						ft_pendant(origen, extrems[0]), tmp_pnt[1].x - max) -
+					(pixel[(j += pixel[1] + 1)]));
+			ft_line(tmp_pnt[1], tmp_pnt[2], mlx);
+			tmp_pnt[1] = tmp_pnt[2];
 		}
 	}
-//	p2 = ft_newpoint(400,200);
-//	ft_draw_line(p1,p2,mlx);
-	return (1);
+	ft_memdel((void **)&tmp_pnt);
+}
+
+static void draw_x(void *mlx, t_point *extrems, t_point origen, int max)
+{
+	int i;
+	int j;
+	int *pixel;
+	t_point *tmp_pnt;
+
+	tmp_pnt = (t_point *)ft_memalloc(sizeof(t_point) * 3);
+	j = 2;
+	i = -1;
+	pixel = ((t_mlx *)mlx)->pixel;
+	while (++i < pixel[0])
+	{
+		tmp_pnt[0] = ft_newpoint(origen.x - max * i, ft_equline(origen,
+					ft_pendant(origen, extrems[0]), origen.x - max * i));
+		tmp_pnt[1] = ft_newpoint(tmp_pnt[0].x, tmp_pnt[0].y - pixel[j++]);
+		while (tmp_pnt[1].x != origen.x - max * i + (pixel[1] - 1) * max)
+		{
+			tmp_pnt[2] = ft_newpoint(tmp_pnt[1].x + max, ft_equline(tmp_pnt[0],
+						ft_pendant(origen, extrems[1]), tmp_pnt[1].x + max) -
+					(pixel[j++]));
+			ft_line(tmp_pnt[1], tmp_pnt[2], mlx);
+			tmp_pnt[1] = tmp_pnt[2];
+		}
+		j++;
+	}
+	ft_memdel((void **)&tmp_pnt);
+}
+
+static void coder(int code, t_point *origen, int *angle, int *max)
+{
+	if (code == 65361)
+		origen->x -= 10;
+	else if (code == 65364)
+		origen->y += 10;
+	else if (code == 65363)
+		origen->x += 10;
+	else if (code == 65362)
+		origen->y -= 10;
+	else if (code == 97)
+		*max -= 10;
+	else if (code == 100)
+		*max += 10;
+	else if (code == 113)
+		*angle += 10;
+	else if (code == 101)
+		*angle -= 10;
+}
+
+int		ft_draw(void *mlx, int code)
+{
+	static t_point	*origen = NULL;
+	static int		angle = 120;
+	static int		max = 40;
+	t_point			*extrems;
+	int				*pixel;
+
+	pixel = ((t_mlx *)mlx)->pixel;
+	if (!origen)
+	{
+		origen = (t_point *)ft_memalloc(sizeof(t_point));
+		*origen = ft_newpoint(500, 0);
+	}
+	if (code == 65361 || code == 65362 || code == 65363 ||
+			code == 65364 || code == 113 || code == 101 || code == 97 || code == 100)
+		ft_clear(mlx);
+	coder(code, origen, &angle, &max);
+	extrems = (t_point *)ft_memalloc(sizeof(t_point) * 2);
+	*extrems = ft_rotatepoint(ft_newpoint(origen->x, 0) , *origen, angle);
+	*(extrems + 1) = ft_rotatepoint(*extrems, *origen, 360 - 2 * angle);
+	draw_x(mlx, extrems, *origen, max);
+	draw_y(mlx, extrems, *origen, max);
+	return (0);
 }

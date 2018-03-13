@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/02/25 22:01:52 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/03/04 23:33:54 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,21 @@
 
 NAME = fdf
 
-LIB_NAME = libfdf
-
 FLAGS = -lmlx -framework OpenGL -framework AppKit
+
+LIBXL = -lm -L/usr/lib/X11 -lmlx -lXext -lX11
 
 MAIN_FUNCS = ft_open_window.c \
 			 ft_draw.c \
-			 ft_draw_line.c \
+			 ft_line.c \
 			 ft_newpoint.c \
 			 ft_point.c \
 			 ft_circle.c \
 			 ft_lector.c \
+			 ft_equline.c \
+			 ft_pendant.c \
+			 ft_rotatepoint.c \
+			 ft_clear.c \
 			 main.c
 
 LIBFT_NAME = libft.a
@@ -48,7 +52,7 @@ INCLUDES_MLX = /usr/local/include
 all : $(NAME)
 
 $(NAME) : $(MAINS_OBJ) $(LIBFT_DIR)$(LIBFT_NAME)
-	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(FLAGS) -o $(NAME)
+	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(LIBXL) -o $(NAME)
 
 $(LIBFT_DIR)$(LIBFT_NAME):
 	$(MAKE) -C $(LIBFT_DIR) --no-print-directory

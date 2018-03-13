@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_point.c                                         :+:      :+:    :+:   */
+/*   ft_clear.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/25 01:03:58 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/03 20:58:13 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/03/04 23:30:58 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/03/04 23:32:38 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define POINT_SIZE 1
 
-void	ft_point(t_point point, void *mlx, int col)
+void	ft_clear(void *mlx)
 {
-	int i;
-	int j;
+	t_mlx *my_mlx;
 
-	i = point.x - POINT_SIZE;
-	while (i < point.x + POINT_SIZE)
-	{
-		j = point.y - POINT_SIZE;
-		while (j < point.y + POINT_SIZE)
-		{
-			mlx_pixel_put(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win, i, j, col);
-			j++;
-		}
-		i++;
-	}
+	my_mlx = (t_mlx *)mlx;
+	mlx_clear_window(my_mlx->ptr, my_mlx->win);
+	return ;
 }

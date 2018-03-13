@@ -6,28 +6,40 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 02:13:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/26 14:51:20 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/06 00:17:04 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int			check_file(int *pixel)
+int			check_file(int **pixel)
 {
 	int colum;
 	int i;
+	int row;
+	int	*new_pixel;
 
 	colum = 0;
 	i = 0;
-	while (pixel[colum] != -2)
+	while ((*pixel)[colum] != -2)
 		colum++;
+	row = 0;
+	while ((*pixel)[i] != -1)
+		if ((*pixel)[i++] == -2)
+			row++;
 	i = 0;
-	while (pixel[i] != -1)
+	while ((*pixel)[i] != -1)
 	{
-		if (pixel[i] == -2 && (i + 1) % (colum + 1))
+		if ((*pixel)[i] == -2 && (i + 1) % (colum + 1))
 			return (0);
 		i++;
 	}
+	new_pixel = ft_memalloc(8 + (i + 1) * 4);
+	ft_memcpy(ft_memcpy(new_pixel, &row, 4) + 4, &colum, 4);
+	ft_memcpy(new_pixel + 2, *pixel, (i + 1) * 4);
+	ft_memdel((void **)pixel);
+	*pixel = new_pixel;
+
 	return (1);
 }
 
@@ -99,7 +111,7 @@ int			*ft_lector(char *filename)
 		ft_strdel(line);
 	}
 	free(line);
-	if (!check_file(pixel))
+	if (!check_file(&pixel))
 		ft_error("Wrong format file input");
 	return (pixel);
 }

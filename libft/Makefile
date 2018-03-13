@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 21:23:52 by jagarcia          #+#    #+#              #
-#    Updated: 2018/02/25 22:10:40 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/03/01 00:51:41 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ $(NAME): $(OBJ)
 	@ranlib $(NAME)
 
 %.o : %.c
-	@gcc -Wall -Wextra -Werror -Iincludes -c $< 
+	@gcc -Wall -Wextra -Iincludes -c $< 
 
 clean:	
 	@rm -f $(OBJ)
