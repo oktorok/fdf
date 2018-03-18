@@ -6,13 +6,15 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 21:23:52 by jagarcia          #+#    #+#              #
-#    Updated: 2018/03/01 00:51:41 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/03/14 16:36:06 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY : all clean fclean re ft_printf
 
 NAME = libft.a
+
+OBJ_DIR = objects/
 
 SRC = ft_isascii.c \
 	  ft_lstdelone.c \
@@ -98,27 +100,32 @@ SRC = ft_isascii.c \
 	  ft_error.c \
 	  get_next_line.c
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJ)
 	@ranlib $(NAME)
 
-%.o : %.c
-	@gcc -Wall -Wextra -Iincludes -c $< 
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)%.o : %.c
+	@gcc -Wall -Wextra -Iincludes -c $<
+	mv -f $(@F) $(OBJ_DIR)
+	@ar rc $(NAME) $@
 
 clean:	
 	@rm -f $(OBJ)
 
 fclean: clean
+	rm -r $(OBJ_DIR)
 	@rm -f $(NAME)
 
 re:	fclean
 	@make
 
-ft_printf:
+ft_printf: $(NAME)
 	$(MAKE) -C ft_printf re
 	mv ./ft_printf/libftprintf.a .
 

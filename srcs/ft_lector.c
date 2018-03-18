@@ -6,85 +6,71 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 02:13:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/06 00:17:04 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/17 20:07:28 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int			check_file(int **pixel)
-{
-	int colum;
-	int i;
-	int row;
-	int	*new_pixel;
-
-	colum = 0;
-	i = 0;
-	while ((*pixel)[colum] != -2)
-		colum++;
-	row = 0;
-	while ((*pixel)[i] != -1)
-		if ((*pixel)[i++] == -2)
-			row++;
-	i = 0;
-	while ((*pixel)[i] != -1)
-	{
-		if ((*pixel)[i] == -2 && (i + 1) % (colum + 1))
-			return (0);
-		i++;
-	}
-	new_pixel = ft_memalloc(8 + (i + 1) * 4);
-	ft_memcpy(ft_memcpy(new_pixel, &row, 4) + 4, &colum, 4);
-	ft_memcpy(new_pixel + 2, *pixel, (i + 1) * 4);
-	ft_memdel((void **)pixel);
-	*pixel = new_pixel;
-
-	return (1);
-}
-
-int			length_pixel(int *pixel)
-{
-	int length;
-
-	length = 1;
-	while (*pixel != -1)
-	{
-		length++;
-		pixel++;
-	}
-	return (length);
-}
-
-void		reallocpixels(int num, int **pixel)
+void		reallocpixels(int num, int **pixel, int nums)
 {
 	int		*new_pixel;
-	int		length;
 	void	*trash;
+	int		length;
 
-	length = length_pixel(*pixel);
-	if (!(new_pixel = (int *)ft_memalloc(sizeof(int) * (length + 1))))
+	length = (*pixel)[0] * (*pixel)[1] + 3 + nums;
+	if (!(new_pixel = (int *)ft_memalloc(sizeof(int) * length)))
 		ft_error(NULL);
-	ft_memcpy(new_pixel, *pixel, length * sizeof(int));
+	ft_memcpy(new_pixel, *pixel, (length - 1) * sizeof(int));
 	new_pixel[length - 1] = num;
-	new_pixel[length] = -1;
 	ft_memdel((void **)pixel);
 	*pixel = new_pixel;
 }
 
 void		build_pixels(char *line, int **pixel)
 {
-	char *tmp;
+	int		i;
+	int		nums;
 
-	tmp = line;
-	reallocpixels(ft_atoi(tmp), pixel);
-	while ((tmp = ft_strchr(tmp, ' ')))
+	i = 0;
+	nums = 0;
+	while (line[i])
 	{
-		while (*tmp == ' ')
-			tmp++;
-		reallocpixels(ft_atoi(tmp), pixel);
+		while (line[i] == ' ')
+			i++;
+		if (line[i])
+		{
+			reallocpixels(ft_atoi(line + i), pixel, nums);
+			nums++;
+		}
+		while (line[i] != ' ' && line[i])
+			i++;
 	}
-	reallocpixels(-2, pixel);
+	(*pixel)[0]++;
+	if (nums != (*pixel)[1])
+		ft_error("Wrong format file input");
+}
+
+static int	first_step(int fd, char **line, int **pixel)
+{
+	int flag;
+	int	i;
+
+	i = 0;
+	(*pixel)[0] = 0;
+	(*pixel)[1] = 0;
+	if ((flag = get_next_line(fd, line)) < 0)
+		ft_error(NULL);
+	while ((*line)[i])
+	{
+		while ((*line)[i] == ' ')
+			i++;
+		if ((*line)[i])
+			(*pixel)[1]++;
+		while ((*line)[i] != ' ' && (*line)[i])
+			i++;
+	}
+	return (flag);
 }
 
 int			*ft_lector(char *filename)
@@ -94,24 +80,20 @@ int			*ft_lector(char *filename)
 	int		*pixel;
 	int		flag;
 
-	if (!(pixel = (int *)ft_memalloc(sizeof(int))))
+	if (!(pixel = (int *)ft_memalloc(sizeof(int) * 2)))
 		ft_error(NULL);
-	pixel[0] = -1;
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		ft_error(NULL);
-	if (!(line = (char **)ft_strnew(sizeof(char *))))
+	if (!(line = (char **)ft_memalloc(sizeof(char *))))
 		ft_error(NULL);
-	while (1)
+	flag = first_step(fd, line, &pixel);
+	while (flag)
 	{
-		if ((flag = get_next_line(fd, line)) < 0)
-			ft_error(NULL);
-		else if (!flag)
-			break ;
 		build_pixels(*line, &pixel);
 		ft_strdel(line);
+		if ((flag = get_next_line(fd, line)) < 0)
+			ft_error(NULL);
 	}
 	free(line);
-	if (!check_file(&pixel))
-		ft_error("Wrong format file input");
 	return (pixel);
 }

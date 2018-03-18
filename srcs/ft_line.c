@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 16:57:26 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/05 05:14:09 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/18 04:27:37 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ static void	draw_colum(t_point p1, t_point p2, void *mlx)
 
 static void vertical_draw(t_point p1, t_point p2, void *mlx)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 	t_point tmp;
+	double	pendant;
 
 	if (p2.y < p1.y)
 	{
@@ -40,9 +41,10 @@ static void vertical_draw(t_point p1, t_point p2, void *mlx)
 		p2 = ft_newpoint(tmp.x, tmp.y);
 	}
 	y = p1.y;
+	pendant = ft_pendant(p1, p2);
 	while (y < p2.y)
 	{
-		x = ((y - p2.y) / ft_pendant(p1, p2)) + p2.x;
+		x = ((y - p2.y) / pendant) + p2.x;
 		ft_point(ft_newpoint(x, -y), mlx, 0xFFFFFF);
 		y++;
 	}
