@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 12:53:43 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/19 15:21:40 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/26 02:08:27 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int			mikeler(char **mikel, char **line)
 	return (josep);
 }
 
-int					reader(char *tmp, int fd, char **line, char **mikel)
+static int					reader(char *tmp, int fd, char **line, char **mikel)
 {
 	int		gonz;
 
@@ -75,11 +75,11 @@ int					reader(char *tmp, int fd, char **line, char **mikel)
 	return (gonz);
 }
 
-void				newmikel(int fd, t_fd **mikel, t_fd **aux)
+static void				newmikel(int fd, t_fd **mikel, t_fd **aux)
 {
 	if (!*mikel)
 	{
-		*mikel = (t_fd *)malloc(sizeof(t_fd));
+		*mikel = (t_fd *)ft_memalloc(sizeof(t_fd));
 		(*mikel)->fd = fd;
 		(*mikel)->buffer = NULL;
 		(*mikel)->next = NULL;
@@ -89,7 +89,7 @@ void				newmikel(int fd, t_fd **mikel, t_fd **aux)
 		*mikel = (*mikel)->next;
 	if (!((*mikel)->next) && (*mikel)->fd != fd)
 	{
-		(*mikel)->next = (t_fd *)malloc(sizeof(t_fd));
+		(*mikel)->next = (t_fd *)ft_memalloc(sizeof(t_fd));
 		*mikel = (*mikel)->next;
 		(*mikel)->fd = fd;
 		(*mikel)->buffer = NULL;

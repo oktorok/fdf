@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 02:13:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/17 20:07:28 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/26 01:46:00 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		build_pixels(char *line, int **pixel)
 {
 	int		i;
 	int		nums;
+	static int cuant = 0;
 
 	i = 0;
 	nums = 0;
@@ -40,6 +41,12 @@ void		build_pixels(char *line, int **pixel)
 			i++;
 		if (line[i])
 		{
+			if (ft_atoi(line + i) == 0)
+			{
+				cuant++;
+				if (cuant == 15)
+					ft_putstr(line);
+			}
 			reallocpixels(ft_atoi(line + i), pixel, nums);
 			nums++;
 		}
@@ -49,6 +56,7 @@ void		build_pixels(char *line, int **pixel)
 	(*pixel)[0]++;
 	if (nums != (*pixel)[1])
 		ft_error("Wrong format file input");
+	ft_printf("hay %i zeros\n", cuant);
 }
 
 static int	first_step(int fd, char **line, int **pixel)

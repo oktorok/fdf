@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:15:11 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 22:28:38 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:39:14 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,5 @@ char				*ft_strcut(char *str, int start, int end);
 char				*ft_strcutfree(char *str, int start, int end);
 char				*ft_strinvert(const char *str);
 void				ft_error(char *err);
+int					ft_numint(int *array, int length, int num);
 #endif

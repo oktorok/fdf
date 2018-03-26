@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 21:23:52 by jagarcia          #+#    #+#              #
-#    Updated: 2018/03/14 16:36:06 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/03/26 05:39:53 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,8 @@ SRC = ft_isascii.c \
 	  ft_strcutfree.c \
 	  ft_strinvert.c \
 	  ft_error.c \
-	  get_next_line.c
+	  get_next_line.c \
+	  ft_numint.c
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 
@@ -112,14 +113,14 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)%.o : %.c
 	@gcc -Wall -Wextra -Iincludes -c $<
-	mv -f $(@F) $(OBJ_DIR)
+	@mv -f $(@F) $(OBJ_DIR)
 	@ar rc $(NAME) $@
 
 clean:	
 	@rm -f $(OBJ)
 
 fclean: clean
-	rm -r $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 	@rm -f $(NAME)
 
 re:	fclean
@@ -128,6 +129,3 @@ re:	fclean
 ft_printf: $(NAME)
 	$(MAKE) -C ft_printf re
 	mv ./ft_printf/libftprintf.a .
-
-norme:
-	@norminette $(SRC) libft.h

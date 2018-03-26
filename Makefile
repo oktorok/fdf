@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/03/14 15:04:04 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/03/24 01:11:40 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ MAIN_FUNCS = ft_open_window.c \
 			 ft_pendant.c \
 			 ft_rotatepoint.c \
 			 ft_clear.c \
+			 ft_iniparams.c \
+			 ft_coder.c \
 			 main.c
 
 LIBFT_NAME = libft.a
