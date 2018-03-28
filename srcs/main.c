@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/24 04:53:39 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/27 04:32:44 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_event(int code, void *mlx)
 {
 	ft_putnbr(code);
-	if (code == 53)
+	if (code == ESCAPE)
 	{
 		mlx_destroy_window(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win);
 		exit(1);
@@ -51,7 +51,7 @@ int	main(int argn, char **argv)
 	/////////////////////////////////
 	mlx->ptr = mlx_init();
 	mlx->win = ft_open_window(mlx);
-	mlx_key_hook(mlx->win, key_event, (void*)mlx);
+	mlx_hook(mlx->win, KEY_RELEASE_EVENT, KEY_RELEASE_MASK, key_event, mlx);
 	mlx_loop(mlx->ptr);
 	return (0);
 }

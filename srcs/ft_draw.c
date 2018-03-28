@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 01:57:22 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/26 06:25:56 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/28 07:51:27 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static t_point	make_vector(t_params params, int angle)
 	else
 		while (hypot(vector.x, vector.y) <= params.square_side)
 			vector.y = ft_equline(origen_cart, pendant, ++vector.x);
-
 	return (ft_rotatepoint(vector, origen_cart, params.turn));
 }
 
@@ -52,7 +51,7 @@ static void		draw_y(void *mlx, t_point origen, t_point *vector, int height)
 		{
 			tmp[2] = ft_newpoint(tmp[1].x - vector[1].x, tmp[1].y -
 					vector[1].y + (pixel[j - pixel[1]] - pixel[j]) * height);
-			ft_line(tmp[1], tmp[2], mlx);
+			ft_line(tmp + 1, mlx, pixel[j - pixel[1]], pixel[j]);
 			tmp[1] = tmp[2];
 			j += pixel[1];
 		}
@@ -80,7 +79,8 @@ static void		draw_x(void *mlx, t_point origen, t_point *vector, int height)
 		{
 			tmp[2] = ft_newpoint(tmp[1].x + vector[0].x, tmp[1].y +
 					vector[0].y + (pixel[j - 1] - pixel[j]) * height);
-			ft_line(tmp[1], tmp[2], mlx);
+			//ft_line(tmp[1], tmp[2], mlx);
+			ft_line(tmp + 1, mlx, pixel[j - 1], pixel[j]);
 			tmp[1] = tmp[2];
 			j++;
 		}
@@ -107,9 +107,6 @@ int			ft_draw(void *mlx)
 	t_params		*params;
 	t_point			origen;
 	t_point			*vector;
-
-	ft_line(ft_newpoint(0, 500), ft_newpoint(1000, 500), mlx);
-	ft_line(ft_newpoint(500, 0), ft_newpoint(500, 1000), mlx);
 
 	params = ((t_mlx *)mlx)->params;
 	vector = (t_point *)ft_memalloc(sizeof(t_point) * 2);

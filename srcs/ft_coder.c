@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/26 05:36:08 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/27 04:33:12 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	ft_coder(void *mlx, int code)
 	t_params *params;
 
 	params = ((t_mlx *)mlx)->params;
-    if (code == 123)
+    if (code == LEFT_ARROW)
         params->true_origen.x -= 10;
-    else if (code == 125)
+    else if (code == UP_ARROW)
         params->true_origen.y += 10;
-    else if (code == 124)
+    else if (code == RIGHT_ARROW)
         params->true_origen.x += 10;
-    else if (code == 126)
+    else if (code == DOWN_ARROW)
         params->true_origen.y -= 10;
     else if (code == 12)
         params->square_side -= 5;

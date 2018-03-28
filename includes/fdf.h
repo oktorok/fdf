@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/26 06:25:52 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/28 13:19:42 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@
 #include <math.h>
 #include <mlx.h>
 #include <errno.h>
+/*
+ *COLOR CONF
+ */
+#define DEEP_VALUE -15
+#define NORMAL_VALUE 0
+#define HIGH_VALUE 15
+#define COLOR_DEEP 0x0000FF
+#define COLOR_HIGH 0xFF0000
+#define COLOR_SCALE 1020/(HIGH_VALUE-DEEP_VALUE)
+/*
+ *COLOR CONF
+ */
+#define KEY_RELEASE_EVENT 2
+#define KEY_RELEASE_MASK (1L<<0)
+#define UP_ARROW 125
+#define LEFT_ARROW 123
+#define RIGHT_ARROW 124
+#define DOWN_ARROW 126
+#define ESCAPE 53
 typedef struct	s_point
 {
 	int			x;
@@ -42,7 +61,7 @@ typedef struct	s_mlx
 	t_params	*params;
 	int			*pixel;
 }				t_mlx;
-void		ft_line(t_point p1, t_point p2, void *mlx);
+void		ft_line(t_point *p, void *mlx, int h, int h2);
 t_point 	ft_newpoint(int x, int y);
 void		*ft_open_window(t_mlx *mlx);
 int			ft_draw(void *mlx);
@@ -57,4 +76,5 @@ t_point		ft_rotatepoint(t_point point, t_point origin, int grades);
 void		ft_clear(void *mlx);
 t_params	*ft_iniparams(int *pixel);
 void		ft_coder(void *mlx, int code);
+int			ft_get_color(int h, int h2, int cuant, int num);
 #endif
