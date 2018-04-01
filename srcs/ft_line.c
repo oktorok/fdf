@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 16:57:26 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/28 13:19:44 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/01 20:44:41 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static void vertical_draw(t_point *p, void *mlx, int height, int height2)
 	if (p2.y < p1.y)
 		swap_point(&p1, &p2);
 	pendant = ft_pendant(p1, p2);
-	cuant = p2.y - p1.y;
+	cuant = p2.y - p1.y + 1;
 	num = 1;
 	while (p1.y < p2.y)
 	{
-		num++;
 		p1.x = ((p1.y - p2.y) / pendant) + p2.x;
 		ft_point(ft_newpoint(p1.x, -p1.y), mlx, ft_get_color(height, height2, cuant, num));
 		p1.y++;
+		num++;
 	}
 }
 
@@ -63,14 +63,14 @@ void		ft_line(t_point *p, void *mlx, int height, int height2)
 	if (p1.x < p2.x)
 		swap_point(&p1, &p2);
 	pendant = ft_pendant(p1, p2);
-	cuant = p1.x - p2.x;
+	cuant = p1.x - p2.x + 1;
 	num = 1;
 	while (p2.x < p1.x)
 	{
-		num++;
 		p2.y = ft_equline(p1, pendant, p2.x);
 		ft_point(ft_newpoint(p2.x, -p2.y), mlx, ft_get_color(height, height2, cuant, num));
 		p2.x++;
+		num++;
 	}
 	return ;
 }

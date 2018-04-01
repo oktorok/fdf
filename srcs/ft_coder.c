@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/27 04:33:12 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/03/30 22:54:00 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_coder(void *mlx, int code)
         params->height += 10;
 	else if (code == 9)
         params->height -= 10;
-
+	else if (code == 51)
+		((t_mlx *)mlx)->params = ft_iniparams(((t_mlx *)mlx)->pixel);
 	else
 		return ;
 	ft_clear(mlx);

@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/28 13:19:42 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/01 15:11:57 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@
 #define HIGH_VALUE 15
 #define COLOR_DEEP 0x0000FF
 #define COLOR_HIGH 0xFF0000
-#define COLOR_SCALE 1020/(HIGH_VALUE-DEEP_VALUE)
+#define COLOR_SCALE 1020 / (HIGH_VALUE-DEEP_VALUE + 1)
+
 /*
  *COLOR CONF
+ */
+/*
+ * KEYS
  */
 #define KEY_RELEASE_EVENT 2
 #define KEY_RELEASE_MASK (1L<<0)
@@ -40,6 +44,10 @@
 #define RIGHT_ARROW 124
 #define DOWN_ARROW 126
 #define ESCAPE 53
+/*
+ * KEYS
+ */
+#define BUFFER_INT 1000
 typedef struct	s_point
 {
 	int			x;

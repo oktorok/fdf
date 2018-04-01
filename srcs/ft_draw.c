@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 01:57:22 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/28 07:51:27 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/01 20:44:53 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void		draw_y(void *mlx, t_point origen, t_point *vector, int height)
 	int					*pixel;
 	t_point				*tmp;
 
-	tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3);
+	if (!(tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
+		ft_error(NULL);
 	pixel = (int *)((t_mlx *)mlx)->pixel;
 	i = -1;
 	while (++i < pixel[1])
@@ -66,7 +67,8 @@ static void		draw_x(void *mlx, t_point origen, t_point *vector, int height)
 	int					*pixel;
 	t_point				*tmp;
 
-	tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3);
+	if (!(tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
+			ft_error(NULL);
 	i = -1;
 	pixel = (int *)((t_mlx *)mlx)->pixel;
 	while (++i < pixel[0])
@@ -79,7 +81,6 @@ static void		draw_x(void *mlx, t_point origen, t_point *vector, int height)
 		{
 			tmp[2] = ft_newpoint(tmp[1].x + vector[0].x, tmp[1].y +
 					vector[0].y + (pixel[j - 1] - pixel[j]) * height);
-			//ft_line(tmp[1], tmp[2], mlx);
 			ft_line(tmp + 1, mlx, pixel[j - 1], pixel[j]);
 			tmp[1] = tmp[2];
 			j++;

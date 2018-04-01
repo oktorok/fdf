@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/03/28 09:49:22 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/01 13:59:51 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,15 @@ MAIN_FUNCS = ft_open_window.c \
 
 LIBFT_NAME = libft.a
 
+HEADERS = fdf.h
+
 LIBFT_ABREV = ft
 
 LIBFT_DIR = libft/
 
 OBJ_DIR = objects/
+
+HEADER_PATH = $(patsubst %.h, $(INCLUDES_DIR)%.h, $(HEADERS))
 
 MAINS_DIR = srcs/
 
@@ -60,7 +64,7 @@ $(NAME) : $(MAINS_OBJ) $(LIBFT_DIR)$(LIBFT_NAME)
 $(LIBFT_DIR)$(LIBFT_NAME):
 	$(MAKE) -C $(LIBFT_DIR) --no-print-directory
 
-$(OBJ_DIR)%.o : $(MAINS_DIR)%.c
+$(OBJ_DIR)%.o : $(MAINS_DIR)%.c $(HEADER_PATH)
 	gcc -c -I $(INCLUDES_DIR) $<
 	mkdir -p $(OBJ_DIR)
 	mv -f $(@F) $(OBJ_DIR)
