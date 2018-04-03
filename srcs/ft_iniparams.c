@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 18:25:08 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/02 22:16:44 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/04 01:15:16 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_params	*ft_iniparams(int *pixel)
 	params->angle[0] = 120;
 	params->angle[1] = 240;
 	params->turn = 0;
-	params->height = 0;
+	params->height = 7;
 	params->vector_z = ft_newpoint(0, params->true_origen.x);
 	return (params);
 }

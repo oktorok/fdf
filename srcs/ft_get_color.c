@@ -6,181 +6,63 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 09:13:39 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/03 19:12:37 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/04 01:36:24 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static char	*hextorgb(int color)
-{
-	char rgb[3];
-
-	rgb[0] = color & 0xFF0000;
-	rgb[1] = color & 0x00FF00;
-	rgb[2] = color & 0x0000FF;
-	return (rgb);
-}
-
 static int	wich_color(int move, int color, int flag)
 {
 
-	char	rgb[3];
-	int		i;
-
-	rgb = hextorgb(color);
-	i = 2;
-	while (rgb[i] != 0xFF)
-		i--;
-
-/*	int	i;
-	int diff;
+	int	i;
 	int mask_a;
 	int mask_b;
-	int tmp;
 
 	mask_a = flag > 0 ? 0x0000FF : 0xFF0000;
 	mask_b = flag > 0 ? 0x00FFFF : 0xFFFF00;
 	i = flag > 0 ? 8 : 16;
-	diff = 1;
-	ft_printf("[move = %i]\n",move);
-	ft_printf("[flag = %i]\n",flag);
-	ft_printf("[color = %#0.6x]\n", color);
-	ft_putstr("EMPIEZO\n");
 	while (move)
 	{
-		ft_printf("{amask = %#0.6x, bmask = %#0.6x}\n",mask_a, mask_b);
+		if (mask_a == 0)
+			break ;
 		if ((color & mask_a) == mask_a && (color & mask_b) != mask_b)
 		{
-			ft_printf("ACOLOR = %#0.6x\n",color);
-			if (mask_b - ((move % 0xFF) << (i - 8) > mask_b))
+			if (color + (move << (flag > 0 ? i : (i - 8))) > mask_b)
 			{
-				if (flag > 0)
-					color = mask_b - ((((mask_b >> (i - 8)) - move) % 0xFF) << (i - 8));
-				else
-					color = mask_b - ((((mask_b >> i) - move) % 0xFF) << i);
-				//	color = mask_b - ((move % 0xFF) << i);
-				if (move > (0xFF * 2))
-					move = move - 0xFF;
-				else
-					break;
-				ft_printf("Amove = %i\n", move);
+				move -= (mask_b - color) >> (flag > 0 ? i : (i - 8));
+				color = mask_b;
 			}
 			else
 			{
-				if (flag > 0)
-					color += move << i;
-				else
-					color += (move << (i - 8));
+				color += move << (flag > 0 ? i : (i - 8));
 				break ;
 			}
 		}
-		i = flag > 0 ? i + 8 : i - 8;
-		if ((color & (mask_a << 8)) == (mask_a << 8) && (color & mask_a) != 0)
-		{
-			ft_printf("BCOLOR = %#0.6x\n",color);
-			if (move >= 0xFF)
-			{
-				if (flag > 0)
-					color = (mask_a << 8) + ((move % 0xFF) << i);
-				else
-					color = (mask_a << 8) + ((move % 0xFF) << (i - 8));
-				if (move > (0xFF * 2))
-					move = move - 0xFF;
-				else
-					break;
-				ft_printf("Bmove = %i\n", move);
-			}
-			else
-			{
-				if (flag > 0)
-					color -= move << (i - 16);
-				else
-					color -= move << (i + 8);
-				break ;
-			}
-		}
-		mask_a = flag > 0 ? mask_a << 8 : mask_a >> 8;
-		mask_b = flag > 0 ? mask_b << 8 : mask_b >> 8;
-		if ((mask_a == 0xFF0000 && flag > 0) || (mask_a == 0x0000FF && flag < 0))
-		{
-			color = mask_a;
+		if ((color == 0xFF0000 && flag > 0) || (color == 0x0000FF && flag < 0))
 			break ;
-		}
-//		if (flag > 0)
-//			i += 8;
-//		else
-//			i -= 8;
-	}
-	ft_printf("FCOLOR = %#0.6x\n", color);
-	ft_putstr("ACABO\n");
-/*	while (diff)
-	{
-		ft_printf("{amask = %#0.6x, bmask = %#0.6x}\n",mask_a, mask_b);
-		if ((color & mask_a) == mask_a && (color & mask_b) != mask_b)
-		{
-			ft_printf("ACOLOR = %#0.6x\n",color);
-			if ((diff = (((mask_b - (color & mask_b)) >> i) - move)) < 0)
-			{
-				if (flag > 0 )
-					color += ((diff + move) << i);
-				else
-					color += ((diff + move) << i);
-				move = -diff;
-				ft_printf("Amove = %i\n", move);
-			}
-			else
-			{
-				color += move << i;
-				break ;
-			}
-		}
-		if ((color & (mask_a << 8)) == (mask_a << 8) && (color & mask_a) != 0)
-		{
-			ft_printf("BCOLOR = %#0.6x\n",color);
-			if ((diff = ((mask_a >> (i - 8)) - move)) < 0)
-			{
-				if (flag > 0)
-					color -= ((diff + move) << (i - 8));
-				else
-					color -= ((diff + move) << (i - 8));
-				move = -diff;
-				ft_printf("Bmove = %i\n", move);
-			}
-			else
-			{
-				color -= move << (i - 8);
-				break ;
-			}
-		}
-		mask_a = flag > 0 ? mask_a << 8 : mask_a >> 8;
-		mask_b = flag > 0 ? mask_b << 8 : mask_b >> 8;
-		if ((mask_a == 0xFF0000 && flag > 0) || (mask_a == 0x0000FF && flag < 0))
-		{
-			color = mask_a;
-			break ;
-		}
-		if (flag > 0)
-			i += 8;
-		else
-			i -= 8;
-	}*/
 
-/*	while (i++ < move)
-	{
-		if ((color & 0x0000FF) == 0x0000FF && (color & 0x00FF00) != 0x00FF00
-				&& (color & 0xFF0000) != 0xFF0000)
-			color += 0x000100;
-		else if (((color & 0x00FFFF) == 0x00FFFF) || ((color & 0x00FF00) ==
-					0x00FF00 && (color | 0xFFFF00) != 0xFFFF00))
-			color -= 0x000001;
-		else if ((color & 0x00FF00) == 0x00FF00 && (color & 0x0000FF) !=
-				0x0000FF && (color & 0xFF0000) != 0xFF0000)
-			color += 0x010000;
-		else if (((color & 0xFFFF00) == 0xFFFF00) || ((color & 0xFF0000) ==
-					0xFF0000 && (color | 0xFF00FF) != 0xFF00FF))
-			color -= 0x000100;
-	}*/
+		if ((color & (flag > 0 ? mask_a << 8 : mask_a >> 8)) == (flag > 0 ? mask_a << 8 : mask_a >> 8) && ((color & mask_a) != 0))
+		{
+			if (color - (move << (flag > 0 ? (i - 8) : i)) < (flag > 0 ? mask_a << 8 : mask_a >> 8))
+			{
+				move -= (color - (flag > 0 ? mask_a << 8 : mask_a >> 8)) >> (flag > 0 ? (i - 8) : i);
+				color = (flag > 0 ? mask_a << 8 : mask_a >> 8);
+			}
+			else
+			{
+				color -= move << (flag > 0 ? (i - 8) : i);
+				break ;
+			}
+		}
+		if (mask_a != 0x00FF00)
+			mask_b = flag > 0 ? mask_b << 8 : mask_b >> 8;
+		mask_a = flag > 0 ? mask_a << 8 : mask_a >> 8;
+		if (i != 8 && flag < 0 || i != 16 && flag > 0)
+			i = flag > 0 ? i + 8 : i - 8;
+		if ((color == 0xFF0000 && flag > 0) || (color == 0x0000FF && flag < 0))
+			break ;
+	}
 	return (color);
 }
 
