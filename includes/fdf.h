@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/01 15:11:57 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/03 04:59:24 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_params
 {
 	t_point		win_size;
 	t_point		true_origen;
+	t_point		vector_z;
 	int			square_side;
 	int			angle[2];
 	int			turn;

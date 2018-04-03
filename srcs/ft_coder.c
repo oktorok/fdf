@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/30 22:54:00 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/02 21:59:52 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,19 @@ void	ft_coder(void *mlx, int code)
 	else if (code == 3)
         params->angle[1] = check_angle(params->angle[1] + 10);
 	else if (code == 8)
-        params->height += 10;
+        params->height += 1;
 	else if (code == 9)
-        params->height -= 10;
+        params->height -= 1;
 	else if (code == 51)
 		((t_mlx *)mlx)->params = ft_iniparams(((t_mlx *)mlx)->pixel);
+	else if (code == 0)
+	{
+		params->vector_z = ft_rotatepoint(params->vector_z, ft_newpoint(0, 0), params->turn);
+	}
+	else if (code == 1)
+	{
+		params->vector_z = ft_rotatepoint(params->vector_z, ft_newpoint(0, 0), -params->turn);
+	}
 	else
 		return ;
 	ft_clear(mlx);

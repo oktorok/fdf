@@ -6,12 +6,12 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 01:03:58 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/30 21:22:29 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/02 21:52:55 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define POINT_SIZE 1
+#define POINT_SIZE 0
 
 void	ft_point(t_point point, void *mlx, int col)
 {
@@ -19,10 +19,10 @@ void	ft_point(t_point point, void *mlx, int col)
 	int j;
 
 	i = point.x - POINT_SIZE;
-	while (i < point.x + POINT_SIZE)
+	while (i <= point.x + POINT_SIZE)
 	{
 		j = point.y - POINT_SIZE;
-		while (j < point.y + POINT_SIZE)
+		while (j <= point.y + POINT_SIZE)
 		{
 			mlx_pixel_put(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win, i, j, col);
 			j++;
