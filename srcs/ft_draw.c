@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 01:57:22 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/02 23:45:36 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/06 03:57:53 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_point	make_vector(t_params params, int angle)
 		vector.y = params.square_side;
 	else
 		while (hypot(vector.x, vector.y) <= params.square_side)
-			vector.y = ft_equline(origen_cart, pendant, ++vector.x);
+			vector.y = ft_equline(origen_cart, pendant, ++vector.x, 0);
 	return (ft_rotatepoint(vector, origen_cart, params.turn));
 }
 

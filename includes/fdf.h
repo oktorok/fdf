@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/03 04:59:24 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/06 03:56:26 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,15 @@
  */
 #define KEY_RELEASE_EVENT 2
 #define KEY_RELEASE_MASK (1L<<0)
-#define UP_ARROW 125
-#define LEFT_ARROW 123
-#define RIGHT_ARROW 124
-#define DOWN_ARROW 126
-#define ESCAPE 53
+#define UP_ARROW 65362 /*125*/
+#define LEFT_ARROW 65361 /*123*/
+#define RIGHT_ARROW 65363 /*124*/
+#define DOWN_ARROW 65364 /*126*/
+#define ESCAPE 65307 /*53*/
+#define ZOOM_IN 122
+#define ZOOM_OUT 120
+#define TURN_1 119
+#define TURN_2 113
 /*
  * KEYS
  */
@@ -80,7 +84,7 @@ void		ft_point(t_point point, void *mlx, int color);
 void		ft_circle(int x, int y, void *mlx, int color);
 int			*ft_lector(char *filename);
 double		ft_pendant(t_point p1, t_point p2);
-int			ft_equline(t_point point, double pendant, int x);
+int			ft_equline(t_point point, double pendant, int x, char inv);
 t_point		ft_rotatepoint(t_point point, t_point origin, int grades);
 void		ft_clear(void *mlx);
 t_params	*ft_iniparams(int *pixel);

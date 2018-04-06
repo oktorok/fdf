@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/02 21:59:52 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/06 02:27:52 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	ft_coder(void *mlx, int code)
         params->true_origen.x += 10;
     else if (code == DOWN_ARROW)
         params->true_origen.y -= 10;
-    else if (code == 12)
+    else if (code == ZOOM_OUT)
         params->square_side -= 5;
-    else if (code == 13)
+    else if (code == ZOOM_IN)
         params->square_side += 5;
-    else if (code == 6)
+    else if (code == TURN_1)
 		params->turn = check_angle(params->turn + 10);
-    else if (code == 7)
+    else if (code == TURN_2)
 		params->turn = check_angle(params->turn - 10);
 	else if (code == 14)
 		params->angle[0] = check_angle(params->angle[0] - 10);
