@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 01:57:22 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/06 03:57:53 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/08 04:20:23 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ static t_point	make_vector(t_params params, int angle)
 	return (ft_rotatepoint(vector, origen_cart, params.turn));
 }
 
-static void		draw_y(void *mlx, t_point origen, t_point *vector, int height)
+static void		draw_y(void *mlx, t_point origen, t_point *vector, t_params par)
 {
 	int					i;
 	int					j;
 	int					*pixel;
 	t_point				*tmp;
-
+	t_point				vector_z;
+	
 	if (!(tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
 		ft_error(NULL);
 	pixel = (int *)((t_mlx *)mlx)->pixel;
@@ -44,14 +45,14 @@ static void		draw_y(void *mlx, t_point origen, t_point *vector, int height)
 	while (++i < pixel[1])
 	{
 		j = i + 2;
-		tmp[0] = ft_newpoint(origen.x + vector[0].x * i, origen.y +
-				vector[0].y * i);
-		tmp[1] = ft_newpoint(tmp[0].x, tmp[0].y - (pixel[j]) * height);
+		vector_z = ft_newpoint(par.vector_z.x * -pixel[j] * par.height, par.vector_z.y * -pixel[j] * par.height);
+		tmp[0] = ft_newpoint(origen.x + vector[0].x * i, origen.y + vector[0].y * i);
+		tmp[1] = ft_newpoint(tmp[0].x + vector_z.x, tmp[0].y + vector_z.y);
 		j += pixel[1];
 		while ((j - 2) < pixel[0] * pixel[1])
 		{
-			tmp[2] = ft_newpoint(tmp[1].x - vector[1].x, tmp[1].y -
-					vector[1].y + (pixel[j - pixel[1]] - pixel[j]) * height);
+			vector_z = ft_newpoint(par.vector_z.x * -(pixel[j - pixel[1]] - pixel[j]) * par.height, par.vector_z.y * -(pixel[j - pixel[1]] - pixel[j]) * par.height);
+			tmp[2] = ft_newpoint(tmp[1].x - vector[1].x - vector_z.x, tmp[1].y - vector[1].y + vector_z.y);
 			ft_line(tmp + 1, mlx, pixel[j - pixel[1]], pixel[j]);
 			tmp[1] = tmp[2];
 			j += pixel[1];
@@ -60,12 +61,13 @@ static void		draw_y(void *mlx, t_point origen, t_point *vector, int height)
 	ft_memdel((void **)&tmp);
 }
 
-static void		draw_x(void *mlx, t_point origen, t_point *vector, int height)
+static void		draw_x(void *mlx, t_point origen, t_point *vector, t_params par)
 {
 	int					i;
 	int					j;
 	int					*pixel;
 	t_point				*tmp;
+	t_point				vector_z;
 
 	if (!(tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
 			ft_error(NULL);
@@ -74,13 +76,14 @@ static void		draw_x(void *mlx, t_point origen, t_point *vector, int height)
 	while (++i < pixel[0])
 	{
 		j = pixel[1] * i + 2;
-		tmp[0] = ft_newpoint(origen.x - vector[1].x * i, origen.y -
-				vector[1].y * i);
-		tmp[1] = ft_newpoint(tmp[0].x, tmp[0].y - (pixel[j++] * height));
+		vector_z = ft_newpoint(par.vector_z.x * -pixel[j] * par.height, par.vector_z.y * -pixel[j] * par.height);
+		tmp[0] = ft_newpoint(origen.x - vector[1].x * i, origen.y - vector[1].y * i);
+		tmp[1] = ft_newpoint(tmp[0].x + vector_z.x, tmp[0].y + vector_z.y);
+		j++;
 		while (j < pixel[1] * (i + 1) + 2)	
 		{
-			tmp[2] = ft_newpoint(tmp[1].x + vector[0].x, tmp[1].y +
-					vector[0].y + (pixel[j - 1] - pixel[j]) * height);
+			vector_z = ft_newpoint(par.vector_z.x * -(pixel[j - 1] - pixel[j]) * par.height, par.vector_z.y * -(pixel[j - 1] - pixel[j]) * par.height);
+			tmp[2] = ft_newpoint(tmp[1].x + vector[0].x + vector_z.x, tmp[1].y + vector[0].y + vector_z.y);
 			ft_line(tmp + 1, mlx, pixel[j - 1], pixel[j]);
 			tmp[1] = tmp[2];
 			j++;
@@ -118,7 +121,8 @@ int			ft_draw(void *mlx)
 	if ((params->angle[0] >= 180))
 		vector[1] = ft_newpoint(-vector[1].x, -vector[1].y);
 	origen = calc_origen(mlx, vector);
-	draw_x(mlx, origen, vector, params->height);
-	draw_y(mlx, origen, vector, params->height);
+	params->vector_z = ft_rotatepoint(ft_newpoint(0, 5), ft_newpoint(0, 0), params->angle[0] - 120);
+	draw_x(mlx, origen, vector, *params);
+	draw_y(mlx, origen, vector, *params);
 	return (0);
 }
