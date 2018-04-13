@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/06 03:56:26 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/13 22:32:22 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 /*
  *COLOR CONF
  */
-#define DEEP_VALUE -15
-#define NORMAL_VALUE 0
-#define HIGH_VALUE 15
+#define DEEP_VALUE -13
+#define HIGH_VALUE 13
 #define COLOR_DEEP 0x0000FF
 #define COLOR_HIGH 0xFF0000
 #define COLOR_SCALE 1020 / (HIGH_VALUE-DEEP_VALUE + 1)
@@ -39,15 +38,15 @@
  */
 #define KEY_RELEASE_EVENT 2
 #define KEY_RELEASE_MASK (1L<<0)
-#define UP_ARROW 65362 /*125*/
-#define LEFT_ARROW 65361 /*123*/
-#define RIGHT_ARROW 65363 /*124*/
-#define DOWN_ARROW 65364 /*126*/
-#define ESCAPE 65307 /*53*/
-#define ZOOM_IN 122
-#define ZOOM_OUT 120
-#define TURN_1 119
-#define TURN_2 113
+#define UP_ARROW /*65362*/ 125
+#define LEFT_ARROW /*65361*/ 123
+#define RIGHT_ARROW /*65363*/ 124
+#define DOWN_ARROW /*65364*/ 126
+#define ESCAPE /*65307*/ 53
+#define ZOOM_IN /*122*/ 69
+#define ZOOM_OUT /*120*/ 78
+#define TURN_1 /*119*/ 7
+#define TURN_2 /*113*/ 6
 /*
  * KEYS
  */

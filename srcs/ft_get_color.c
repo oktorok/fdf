@@ -6,13 +6,13 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 09:13:39 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/05 01:07:30 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/13 22:32:24 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int color_move(int color, int i, int mask, int *move)
+static int	color_move(int color, int i, int mask, int *move)
 {
 	int flag[2];
 
@@ -59,7 +59,7 @@ static int	wich_color(int move, int color, int flag)
 			color = color_move(flag > 0 ? color : -color, i, -mask_tmp, &move);
 		mask_b = flag > 0 ? mask_b << 8 : mask_b >> 8;
 		mask_a = flag > 0 ? mask_a << 8 : mask_a >> 8;
-		if (i != 8 && flag < 0 || i != 16 && flag > 0)
+		if ((i != 8 && flag < 0) || (i != 16 && flag > 0))
 			i = flag > 0 ? i + 8 : i - 8;
 	}
 	return (color);
@@ -113,5 +113,4 @@ int			ft_get_color(int height, int height2, int cuant, int pos)
 	else
 		return (ini = wich_color(color_scale, ini, height < height2 ? 1 : -1));
 	return (0xFFFFFF);
-
 }

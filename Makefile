@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/03 19:51:15 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/13 18:26:13 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,13 @@ MAIN_FUNCS = ft_open_window.c \
 			 ft_get_color.c \
 			 main.c
 
-LIBFT_NAME = libft.a
+LIBFT_NAME = /libft.a
 
 HEADERS = fdf.h
 
 LIBFT_ABREV = ft
 
-LIBFT_DIR = libft/
+LIBFT_DIR = libft
 
 OBJ_DIR = objects/
 
@@ -59,7 +59,7 @@ INCLUDES_MLX = /usr/local/include
 all : $(NAME)
 
 $(NAME) : $(MAINS_OBJ) $(LIBFT_DIR)$(LIBFT_NAME)
-	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(LIBXL) -o $(NAME)
+	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(FLAGS) -o $(NAME)
 
 $(LIBFT_DIR)$(LIBFT_NAME):
 	$(MAKE) -C $(LIBFT_DIR) --no-print-directory
