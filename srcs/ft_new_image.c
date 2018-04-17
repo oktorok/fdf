@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_equline.c                                       :+:      :+:    :+:   */
+/*   ft_new_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/03 21:01:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/06 03:59:32 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/04/15 00:34:23 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/04/15 00:37:04 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_equline(t_point point, double pendant, int x, char inv)
+void	*ft_new_image(void *mlx)
 {
-	int y;
+	t_mlx *tmpmlx;
 
-	if (!inv)
-		return (point.y + pendant * (x - point.x));
-	else
-		return (((x - point.y) / pendant) + point.x);
+	tmpmlx = (t_mlx *)mlx;
+	return (mlx_new_image(tmpmlx->ptr, tmpmlx->params->win_size.x,
+				tmpmlx->params->win_size.y));
 }

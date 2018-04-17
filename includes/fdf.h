@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/13 22:32:22 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/17 04:32:33 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 /*
  *COLOR CONF
  */
-#define DEEP_VALUE -13
-#define HIGH_VALUE 13
+#define DEEP_VALUE -15
+#define HIGH_VALUE 15
 #define COLOR_DEEP 0x0000FF
 #define COLOR_HIGH 0xFF0000
 #define COLOR_SCALE 1020 / (HIGH_VALUE-DEEP_VALUE + 1)
@@ -50,19 +50,21 @@
 /*
  * KEYS
  */
+#define BITS_PER_PIXEL 32
+#define ENDIAN 0
 #define BUFFER_INT 1000
 typedef struct	s_point
 {
-	int			x;
-	int			y;
+	double			x;
+	double			y;
+	double			z;
 }				t_point;
 typedef struct s_params
 {
 	t_point		win_size;
 	t_point		true_origen;
-	t_point		vector_z;
 	int			square_side;
-	int			angle[2];
+	int			angle[3];
 	int			turn;
 	int			height;
 }				t_params;
@@ -70,23 +72,22 @@ typedef struct	s_mlx
 {
 	void		*ptr;
 	void		*win;
+	void		*img;
+	char		*addrs;
 	t_params	*params;
 	int			*pixel;
 }				t_mlx;
-void		ft_line(t_point *p, void *mlx, int h, int h2);
-t_point 	ft_newpoint(int x, int y);
+void		ft_line(t_point p1, t_point p2, void *mlx, int height);
+t_point 	ft_newpoint(int x, int y, int z);
 void		*ft_open_window(t_mlx *mlx);
 int			ft_draw(void *mlx);
-int			ft_mouse_draw(int x, int y, void *mlx);
-int			ft_wall(void *mlx, int color);
-void		ft_point(t_point point, void *mlx, int color);
-void		ft_circle(int x, int y, void *mlx, int color);
+void		ft_point_to_image(t_point point, void *mlx, int color);
 int			*ft_lector(char *filename);
-double		ft_pendant(t_point p1, t_point p2);
-int			ft_equline(t_point point, double pendant, int x, char inv);
-t_point		ft_rotatepoint(t_point point, t_point origin, int grades);
 void		ft_clear(void *mlx);
 t_params	*ft_iniparams(int *pixel);
 void		ft_coder(void *mlx, int code);
 int			ft_get_color(int h, int h2, int cuant, int num);
+void		*ft_new_image(void *mlx);
+char		*ft_image_addrs(void *mlx);
+int			ft_print_image(void *mlx);
 #endif

@@ -6,16 +6,17 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 17:05:42 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/02/25 01:33:14 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/17 02:26:45 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point ft_newpoint(int x, int y)
+t_point ft_newpoint(int x, int y, int z)
 {
 	t_point p;
 	p.x = x;
 	p.y = y;
+	p.z = z;
 	return (p);
 }

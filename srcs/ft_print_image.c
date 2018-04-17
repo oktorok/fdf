@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pendant.c                                       :+:      :+:    :+:   */
+/*   ft_print_image.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/04 01:32:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/18 08:42:17 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/04/15 01:22:08 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/04/15 01:23:54 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	ft_pendant(t_point p1, t_point p2)
+int		ft_print_image(void *mlx)
 {
-	double	dif_y;
-	double	dif_x;
-	double	res;
+	t_mlx *tmpmlx;
 
-	dif_y = (double)p2.y - (double)p1.y;
-	dif_x = (double)p2.x - (double)p1.x;
-	res = (double)dif_y / (double)dif_x;
-	return (res);
+	tmpmlx = (t_mlx *)mlx;
+	return (mlx_put_image_to_window(tmpmlx->ptr, tmpmlx->win, tmpmlx->img, 0, 0));
 }

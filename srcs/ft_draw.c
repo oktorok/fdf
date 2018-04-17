@@ -5,124 +5,108 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/02 01:57:22 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/13 18:36:52 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/04/15 02:36:01 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/04/17 07:56:29 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_point	make_vector(t_params params, int angle)
+static double dectorad(int hex)
 {
-	t_point		vector;
-	t_point		origen_cart;
-	double		pendant;
+    double rad;
 
-	origen_cart = ft_newpoint(0, 0);
-	vector = origen_cart;
-	pendant = ft_pendant(origen_cart, ft_rotatepoint(ft_newpoint(0,
-					params.true_origen.x), origen_cart, angle));
-	if (isinf(pendant))
-		vector.y = params.square_side;
-	else
-		while (hypot(vector.x, vector.y) <= params.square_side)
-			vector.y = ft_equline(origen_cart, pendant, ++vector.x, 0);
-	return (ft_rotatepoint(vector, origen_cart, params.turn));
+    rad = (double)hex * M_PI / 180.0;
+    return (rad);
 }
 
-static void		draw_y(void *mlx, t_point origen, t_point *vector, t_params par)
+static t_point		set_axi(int i)
 {
-	int					i;
-	int					j;
-	int					*pixel;
-	t_point				*tmp;
-	t_point				vector_z;
-	
-	if (!(tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
-		ft_error(NULL);
-	pixel = (int *)((t_mlx *)mlx)->pixel;
-	i = -1;
-	while (++i < pixel[1])
-	{
-		j = i + 2;
-		vector_z = ft_newpoint(par.vector_z.x * -pixel[j] * par.height, par.vector_z.y * -pixel[j] * par.height);
-		tmp[0] = ft_newpoint(origen.x + vector[0].x * i, origen.y + vector[0].y * i);
-		tmp[1] = ft_newpoint(tmp[0].x + vector_z.x, tmp[0].y + vector_z.y);
-		j += pixel[1];
-		while ((j - 2) < pixel[0] * pixel[1])
-		{
-			vector_z = ft_newpoint(par.vector_z.x * -(pixel[j - pixel[1]] - pixel[j]) * par.height, par.vector_z.y * -(pixel[j - pixel[1]] - pixel[j]) * par.height);
-			tmp[2] = ft_newpoint(tmp[1].x - vector[1].x - vector_z.x, tmp[1].y - vector[1].y - vector_z.y);
-			ft_line(tmp + 1, mlx, pixel[j - pixel[1]], pixel[j]);
-			tmp[1] = tmp[2];
-			j += pixel[1];
-		}
-	}
-	ft_memdel((void **)&tmp);
+	if (!i)
+		return (ft_newpoint(1, 0, 0));
+	else if (i == 1)
+		return (ft_newpoint(0, 1, 0));
+	else 
+		return (ft_newpoint(0, 0, 1));
 }
 
-static void		draw_x(void *mlx, t_point origen, t_point *vector, t_params par)
+static t_point		ft_rotator(t_point p, int *angle, t_point origen)
 {
-	int					i;
-	int					j;
-	int					*pixel;
-	t_point				*tmp;
-	t_point				vector_z;
-
-	if (!(tmp = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
-			ft_error(NULL);
-	i = -1;
-	pixel = (int *)((t_mlx *)mlx)->pixel;
-	while (++i < pixel[0])
-	{
-		j = pixel[1] * i + 2;
-		vector_z = ft_newpoint(par.vector_z.x * -pixel[j] * par.height, par.vector_z.y * -pixel[j] * par.height);
-		tmp[0] = ft_newpoint(origen.x - vector[1].x * i, origen.y - vector[1].y * i);
-		tmp[1] = ft_newpoint(tmp[0].x + vector_z.x, tmp[0].y + vector_z.y);
-		j++;
-		while (j < pixel[1] * (i + 1) + 2)	
-		{
-			vector_z = ft_newpoint(par.vector_z.x * -(pixel[j - 1] - pixel[j]) * par.height, par.vector_z.y * -(pixel[j - 1] - pixel[j]) * par.height);
-			tmp[2] = ft_newpoint(tmp[1].x + vector[0].x - vector_z.x, tmp[1].y + vector[0].y - vector_z.y);
-			ft_line(tmp + 1, mlx, pixel[j - 1], pixel[j]);
-			tmp[1] = tmp[2];
-			j++;
-		}
-	}
-	ft_memdel((void **)&tmp);
-}
-
-static t_point	calc_origen(t_mlx *mlx, t_point *vector)
-{
-	int	*pix;
-	t_params *params;
+	t_point	rot;
 	t_point tmp;
+	t_point	axi;
+	int		i;
+	double	rads;
 
-	pix = mlx->pixel;
-	params = mlx->params;
-	tmp = ft_newpoint(params->true_origen.x, params->true_origen.y);
-	tmp.x += vector[1].x * (pix[0] - 1) / 2 - vector[0].x * (pix[1] - 1) / 2;
-	tmp.y += vector[1].y * (pix[0] - 1) / 2 - vector[0].y * (pix[1] - 1) / 2;
-	return (tmp);
+	i = 3;
+	rot.x = p.x;
+	rot.y = p.y;
+	rot.z = p.z;
+	while (--i >= 0)
+	{
+		axi = set_axi(i);
+		rads = dectorad(angle[i]);
+		tmp.x =
+			(cos(rads) + axi.x * (1.0 - cos(rads))) * rot.x +
+			(-axi.z * sin(rads)) * rot.y +
+			(axi.y * sin(rads)) * rot.z;
+		tmp.y =
+			(axi.z * sin(rads)) * rot.x +
+			(cos(rads) + axi.y * (1.0 - cos(rads))) * rot.y +
+			(-axi.x * sin(rads)) * rot.z;
+		tmp.z =
+			(-axi.y * sin(rads)) * rot.x +
+			(axi.x * sin(rads)) * rot.y +
+			(cos(rads) + axi.z * (1.0 - cos(rads))) * rot.z;
+		rot = tmp;
+	}
+	rot.x += origen.x;
+	rot.y += origen.y;
+	rot.z += origen.z;
+	return (rot);
 }
 
-int			ft_draw(void *mlx)
+int		ft_draw(void *mlx)
 {
-	t_params		*params;
-	t_point			origen;
-	t_point			*vector;
+	t_params	*par;
+	par = ((t_mlx *)mlx)->params;
+	static t_point		x_vec = {40, 0, 0};
+	static t_point		y_vec = {0, 40, 0};
+	static t_point		z_vec = {0, 0, 40};
+	t_point		origen;
 
-	params = ((t_mlx *)mlx)->params;
-	vector = (t_point *)ft_memalloc(sizeof(t_point) * 2);
-	vector[0] = make_vector(*params, params->angle[1]);
-	vector[1] = make_vector(*params, params->angle[0]);
-	if ((params->angle[1] < 180))
-		vector[0] = ft_newpoint(-vector[0].x, -vector[0].y);
-	if ((params->angle[0] >= 180))
-		vector[1] = ft_newpoint(-vector[1].x, -vector[1].y);
-	origen = calc_origen(mlx, vector);
-	params->vector_z = ft_rotatepoint(ft_newpoint(0, 5), ft_newpoint(0, 0), params->angle[0] - 120 + params->angle[1] - 240);
-	draw_x(mlx, origen, vector, *params);
-	draw_y(mlx, origen, vector, *params);
+	origen = par->true_origen;
+
+	x_vec = ft_rotator(x_vec, par->angle, origen);
+	y_vec = ft_rotator(y_vec, par->angle, origen);
+	z_vec = ft_rotator(z_vec, par->angle, origen);
+
+	par->angle[0] = 0;
+	par->angle[1] = 0;
+	par->angle[2] = 0;
+//	y_vec = rotar_sobrex(y_vec, par->angle[0]);
+//	y_vec = rotar_sobrey(y_vec, par->angle[1]);
+//	y_vec = rotar_sobrez(y_vec, par->angle[2]);
+
+
+ft_printf("\n[          ]\nx = \t (%f, %f, %f)\ny = \t (%f, %f, %f)\nz = \t (%f, %f, %f)\n[          ]\n",x_vec.x, x_vec.y, x_vec.z, y_vec.x,y_vec.y,y_vec.z,z_vec.x,z_vec.y,z_vec.z);
+
+
+	ft_line(origen, x_vec, mlx, 0x0000FF);
+
+	ft_line(origen, y_vec, mlx, 0x00FF00);
+
+	ft_line(origen, z_vec, mlx, 0xFF0000);
+
+x_vec.x -= origen.x;
+x_vec.y -= origen.y;
+x_vec.z -= origen.z;
+y_vec.x -= origen.x;
+y_vec.y -= origen.y;
+y_vec.z -= origen.z;
+z_vec.x -= origen.x;
+z_vec.y -= origen.y;
+z_vec.z -= origen.z;
+
 	return (0);
 }

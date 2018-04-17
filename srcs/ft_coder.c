@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/06 02:27:52 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/17 03:50:55 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,23 @@ void	ft_coder(void *mlx, int code)
     else if (code == TURN_2)
 		params->turn = check_angle(params->turn - 10);
 	else if (code == 14)
-		params->angle[0] = check_angle(params->angle[0] - 10);
+		params->angle[0] = check_angle(params->angle[0] - 5);
 	else if (code == 15)
-		params->angle[0] = check_angle(params->angle[0] + 10);
+		params->angle[0] = check_angle(params->angle[0] + 5);
 	else if (code == 2)
-        params->angle[1] = check_angle(params->angle[1] - 10);
+        params->angle[1] = check_angle(params->angle[1] - 5);
 	else if (code == 3)
-        params->angle[1] = check_angle(params->angle[1] + 10);
+        params->angle[1] = check_angle(params->angle[1] + 5);
+	else if (code == 0)
+		params->angle[2] = check_angle(params->angle[2] + 5);
+	else if (code == 1)
+		params->angle[2] = check_angle(params->angle[2] - 5);
 	else if (code == 8)
         params->height += 1;
 	else if (code == 9)
         params->height -= 1;
 	else if (code == 51)
 		((t_mlx *)mlx)->params = ft_iniparams(((t_mlx *)mlx)->pixel);
-	else if (code == 0)
-	{
-		params->vector_z = ft_rotatepoint(params->vector_z, ft_newpoint(0, 0), params->turn);
-	}
-	else if (code == 1)
-	{
-		params->vector_z = ft_rotatepoint(params->vector_z, ft_newpoint(0, 0), -params->turn);
-	}
 	else
 		return ;
 	ft_clear(mlx);

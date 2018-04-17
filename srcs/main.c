@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/03 00:05:47 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/15 01:28:46 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	key_event(int code, void *mlx)
 		exit(1);
 	}
 	ft_coder(mlx, code);
+	((t_mlx *)mlx)->img = ft_new_image(mlx);
+	((t_mlx *)mlx)->addrs = ft_image_addrs(mlx);
 	ft_draw(mlx);
-
+	ft_print_image(mlx);
 	return (0);
 }
 
