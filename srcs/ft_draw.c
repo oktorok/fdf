@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 02:36:01 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/17 07:57:18 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/18 04:56:45 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,93 +20,132 @@ static double dectorad(int hex)
     return (rad);
 }
 
-static t_point		set_axi(int i)
+static t_point		set_axi_angle(int i, t_point angle, int *tmpangle)
 {
 	if (!i)
+	{
+		*tmpangle = angle.x;
 		return (ft_newpoint(1, 0, 0));
+	}
 	else if (i == 1)
+	{
+		*tmpangle = angle.y;
 		return (ft_newpoint(0, 1, 0));
-	else 
-		return (ft_newpoint(0, 0, 1));
+	}
+	*tmpangle = angle.z;
+	return (ft_newpoint(0, 0, 1));
 }
 
-static t_point		ft_rotator(t_point p, int *angle, t_point origen)
+static t_point		ft_rotator(t_point p, t_point angle, t_point origen)
 {
 	t_point	rot;
-	t_point tmp;
 	t_point	axi;
 	int		i;
 	double	rads;
+	int		angletmp;
 
-	i = 3;
-	rot.x = p.x;
-	rot.y = p.y;
-	rot.z = p.z;
-	while (--i >= 0)
+	i = -1;
+	rot = p;
+	while (++i < 3)
 	{
-		axi = set_axi(i);
-		rads = dectorad(angle[i]);
-		tmp.x =
+		axi = set_axi_angle(i, angle, &angletmp);
+		rads = dectorad(angletmp);
+		ft_printf("\nangulo %i =\t%.15f\n",i,rads);
+		p.x =
 			(cos(rads) + axi.x * (1.0 - cos(rads))) * rot.x +
 			(-axi.z * sin(rads)) * rot.y +
 			(axi.y * sin(rads)) * rot.z;
-		tmp.y =
+		p.y =
 			(axi.z * sin(rads)) * rot.x +
 			(cos(rads) + axi.y * (1.0 - cos(rads))) * rot.y +
 			(-axi.x * sin(rads)) * rot.z;
-		tmp.z =
+		p.z =
 			(-axi.y * sin(rads)) * rot.x +
 			(axi.x * sin(rads)) * rot.y +
 			(cos(rads) + axi.z * (1.0 - cos(rads))) * rot.z;
-		rot = tmp;
+		rot = p;
 	}
-	rot.x += origen.x;
-	rot.y += origen.y;
-	rot.z += origen.z;
 	return (rot);
 }
 
-int		ft_draw(void *mlx)
+t_point	ft_traslation(t_point p, t_point vector)
 {
-	t_params	*par;
-	par = ((t_mlx *)mlx)->params;
-	static t_point		x_vec = {40, 0, 0};
-	static t_point		y_vec = {0, 40, 0};
-	static t_point		z_vec = {0, 0, 40};
+	p.x += vector.x;
+	p.y += vector.y;
+	p.z += vector.z;
+	return (p);
+}
+
+static t_point vectscalprod(t_point p, double n)
+{
+	return (ft_newpoint(p.x * n, p.y * n, p.z * n));
+}
+
+static t_point vectadd(t_point p, t_point q)
+{
+	return (ft_newpoint(p.x + q.x, p.y + q.y, p.z + q.z));
+}
+
+static t_point locate_point(t_point *sist_ref, int x, int y, int z)
+{
+	t_point x_pos;
+	t_point y_pos;
+	t_point z_pos;
+	
+	x_pos = vectscalprod(sist_ref[0], x);
+	y_pos = vectscalprod(sist_ref[1], y);
+	z_pos = vectscalprod(sist_ref[2], z);
+	return (vectadd(vectadd(x_pos, y_pos), z_pos));
+}
+
+static int ft_drawx(t_point *vector, int *pixel, t_point origen, void *mlx)
+{
+	t_point tmp[2];
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < pixel[-2])
+	{
+		tmp[0] = vectadd(origen, locate_point(vector, i, j, pixel[i * pixel[-1] + j]));
+		if (i + 1 < pixel[-2])
+		{
+			tmp[1] = vectadd(origen, locate_point(vector, i + 1, j, pixel[(i + 1) * pixel[-1] + j]));
+			ft_line(tmp, mlx, pixel[i * pixel[-1] + j], pixel[(i + 1) * pixel[-1] + j]);
+		}
+		if (j + 1 < pixel[-1])
+		{
+			tmp[1] = vectadd(origen, locate_point(vector, i, j + 1, pixel[i * pixel[-1] + j + 1]));
+			ft_line(tmp, mlx, pixel[i * pixel[-1] + j], pixel[i * pixel[-1] + j + 1]);
+		}
+		if (++j >= pixel[-1])
+		{
+			j = 0;
+			i++;
+		}
+	}
+	return (0);
+}
+
+int	ft_draw(void *mlx)
+{
+	t_point		*vector;
 	t_point		origen;
+	t_params	*par;
+	int 		*pixel;
 
+	pixel = ((t_mlx *)mlx)->pixel;
+	vector = ((t_mlx *)mlx)->vector;
+	par = ((t_mlx *)mlx)->params;
 	origen = par->true_origen;
-
-	x_vec = ft_rotator(x_vec, par->angle, origen);
-	y_vec = ft_rotator(y_vec, par->angle, origen);
-	z_vec = ft_rotator(z_vec, par->angle, origen);
-
-	par->angle[0] = 0;
-	par->angle[1] = 0;
-	par->angle[2] = 0;
-//	y_vec = rotar_sobrex(y_vec, par->angle[0]);
-//	y_vec = rotar_sobrey(y_vec, par->angle[1]);
-//	y_vec = rotar_sobrez(y_vec, par->angle[2]);
-
-
-ft_printf("\n[          ]\nx = \t (%f, %f, %f)\ny = \t (%f, %f, %f)\nz = \t (%f, %f, %f)\n[          ]\n",x_vec.x, x_vec.y, x_vec.z, y_vec.x,y_vec.y,y_vec.z,z_vec.x,z_vec.y,z_vec.z);
-
-
-	ft_line(origen, x_vec, mlx, 0x0000FF);
-
-	ft_line(origen, y_vec, mlx, 0x00FF00);
-
-	ft_line(origen, z_vec, mlx, 0xFF0000);
-
-x_vec.x -= origen.x;
-x_vec.y -= origen.y;
-x_vec.z -= origen.z;
-y_vec.x -= origen.x;
-y_vec.y -= origen.y;
-y_vec.z -= origen.z;
-z_vec.x -= origen.x;
-z_vec.y -= origen.y;
-z_vec.z -= origen.z;
-
+	vector[0] = ft_rotator(vector[0], par->angle, origen);
+	vector[1] = ft_rotator(vector[1], par->angle, origen);
+	vector[2] = ft_rotator(vector[2], par->angle, origen);
+	vector[0] = ft_traslation(vector[0], ft_newpoint(par->cube_side.x, 0, 0));
+	vector[1] = ft_traslation(vector[1], ft_newpoint(0, par->cube_side.y, 0));
+	vector[2] = ft_traslation(vector[2], ft_newpoint(0, 0, par->cube_side.z));
+	par->angle = ft_newpoint(0, 0, 0);
+	par->cube_side = ft_newpoint(0, 0, 0);
+	ft_drawx(vector, pixel + 2, origen, mlx);
 	return (0);
 }

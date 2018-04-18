@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/17 02:00:03 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/18 01:46:57 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ MAIN_FUNCS = ft_open_window.c \
 			 ft_point_to_image.c \
 			 ft_lector.c \
 			 ft_clear.c \
-			 ft_iniparams.c \
+			 ft_initialize.c \
 			 ft_coder.c \
 			 ft_get_color.c \
 			 ft_new_image.c \

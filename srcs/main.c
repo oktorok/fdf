@@ -6,13 +6,13 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/15 01:28:46 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/18 03:18:09 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	key_event(int code, void *mlx)
+static int	key_event(int code, void *mlx)
 {
 	ft_putnbr(code);
 	if (code == ESCAPE)
@@ -41,16 +41,9 @@ int	main(int argn, char **argv)
 	i = 2;
 	mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx));
 	mlx->pixel = ft_lector(argv[1]);
-	mlx->params = ft_iniparams(mlx->pixel);
-	/////////////////////////////////
-	while (i < mlx->pixel[1] * mlx->pixel[0] + 2)
-	{
-		if (!((i - 2) % (mlx->pixel[1])))
-			ft_putchar('\n');
-		ft_printf("<%i>",mlx->pixel[i]);
-		i++;
-	}
-	/////////////////////////////////
+	ft_printf("(%f, %f, %f)\n", mlx->vector[0].x, mlx->vector[0].y, mlx->vector[0].z);
+	mlx->params = ft_initialize(mlx->pixel, mlx->vector);
+	ft_printf("(%f, %f, %f)\n", mlx->vector[0].x, mlx->vector[0].y, mlx->vector[0].z);
 	mlx->ptr = mlx_init();
 	mlx->win = ft_open_window(mlx);
 	mlx_hook(mlx->win, KEY_RELEASE_EVENT, KEY_RELEASE_MASK, key_event, mlx);

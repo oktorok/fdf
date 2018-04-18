@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/17 07:57:20 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/18 04:46:36 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ typedef struct s_params
 {
 	t_point		win_size;
 	t_point		true_origen;
-	int			square_side;
-	int			angle[3];
-	int			turn;
-	int			height;
+	t_point		cube_side;
+	t_point		angle;
 }				t_params;
 typedef struct	s_mlx
 {
@@ -76,15 +74,16 @@ typedef struct	s_mlx
 	char		*addrs;
 	t_params	*params;
 	int			*pixel;
+	t_point		vector[3];
 }				t_mlx;
-void		ft_line(t_point p1, t_point p2, void *mlx, int height);
+void		ft_line(t_point *p, void *mlx, int h, int h2);
 t_point 	ft_newpoint(int x, int y, int z);
 void		*ft_open_window(t_mlx *mlx);
 int			ft_draw(void *mlx);
 void		ft_point_to_image(t_point point, void *mlx, int color);
 int			*ft_lector(char *filename);
 void		ft_clear(void *mlx);
-t_params	*ft_iniparams(int *pixel);
+t_params	*ft_initialize(int *pixel, t_point vector[3]);
 void		ft_coder(void *mlx, int code);
 int			ft_get_color(int h, int h2, int cuant, int num);
 void		*ft_new_image(void *mlx);
