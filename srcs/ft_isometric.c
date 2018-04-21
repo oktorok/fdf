@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_newpoint.c                                      :+:      :+:    :+:   */
+/*   ft_isometric.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/19 17:05:42 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/21 04:43:05 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/04/21 02:43:56 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/04/21 04:36:33 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point ft_newpoint(double x, double y, double z)
+t_point	*ft_isometric(t_point *v)
 {
-	t_point p;
-	p.x = x;
-	p.y = y;
-	p.z = z;
-	return (p);
+	t_point tmp[3];
+
+	tmp[0] = ft_vrest(ft_vprodbyscal(v[0], M_SQRT2 / 2.0), ft_vprodbyscal(v[1], 1.0 / sqrt(6.0)));
+	tmp[1] = ft_vadd(ft_vprodbyscal(v[0], -M_SQRT2 / 2.0), ft_vprodbyscal(v[1], - 1.0 / sqrt(6.0)));
+	tmp[2] = ft_vprodbyscal(v[1], sqrt(2.0 / 3.0));
+
+	v[0] = tmp[0];
+	v[1] = tmp[1];
+	v[2] = tmp[2];
+	return (v);
 }

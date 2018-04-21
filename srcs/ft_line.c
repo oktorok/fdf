@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 16:57:26 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/18 04:46:20 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/21 04:51:31 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		ft_line(t_point *p, void *mlx, int h, int h2)
 	int		i;
 	t_point	tmp;
 
-	dp = ft_newpoint(p[1].x - p[0].x, p[1].y - p[0].y, 0);
+	dp = ft_newpoint((int)(p[1].x - p[0].x), (int)(p[1].y - p[0].y), 0);
 	increments[0] = dp.x < 0 ? -1 : 1;
 	increments[1] = dp.y < 0 ? -1 : 1;
 	dp = ft_newpoint(fabs(dp.x), fabs(dp.y), 0);
@@ -37,7 +37,7 @@ void		ft_line(t_point *p, void *mlx, int h, int h2)
 	dp = dp.x <= dp.y ? ft_newpoint(dp.y, dp.x, 0) : dp;
 	numerator = (int)dp.x >> 1;
 	i = 0;
-	tmp = p[0];
+	tmp = ft_newpoint((int)p[0].x, (int)p[0].y, (int)p[0].z);
 	while (++i <= dp.x + 1)
 	{
 		ft_point_to_image(ft_newpoint(tmp.x, tmp.y, 0), mlx, ft_get_color(h, h2, dp.x + 1, i));

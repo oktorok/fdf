@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 09:13:39 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/13 22:32:24 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/21 04:48:55 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	color_move(int color, int i, int mask, int *move)
 
 static int	wich_color(int move, int color, int flag)
 {
+	return (0xFFFFFF);
 	int	i;
 	int mask_a;
 	int mask_tmp;
@@ -61,6 +62,10 @@ static int	wich_color(int move, int color, int flag)
 		mask_a = flag > 0 ? mask_a << 8 : mask_a >> 8;
 		if ((i != 8 && flag < 0) || (i != 16 && flag > 0))
 			i = flag > 0 ? i + 8 : i - 8;
+	if (color == COLOR_DEEP && flag < 0)
+		return (COLOR_DEEP);
+	else if (color == COLOR_HIGH && flag > 0)
+		return (COLOR_HIGH);
 	}
 	return (color);
 }
@@ -82,10 +87,10 @@ static int	set_scale(int height, int height2, int cuant)
 
 	start = set_pos(height);
 	end = set_pos(height2);
-	if (cuant < labs(start - end))
+//	if (cuant < labs(start - end))
 		return (labs(start - end) / cuant);
-	else
-		return (cuant / labs(start - end));
+//	else
+//		return (cuant / labs(start - end));
 }
 
 int			ft_get_color(int height, int height2, int cuant, int pos)
@@ -104,13 +109,5 @@ int			ft_get_color(int height, int height2, int cuant, int pos)
 	if (height == height2)
 		return (ini);
 	color_scale = set_scale(height, height2, cuant);
-	if ((color_scale * pos + set_pos(height)) >=
-			set_pos(height2) && height < height2)
-		return (ini);
-	if (set_pos(height) - color_scale * pos <=
-			set_pos(height2) && height > height2)
-		return (ini);
-	else
-		return (ini = wich_color(color_scale, ini, height < height2 ? 1 : -1));
-	return (0xFFFFFF);
+	return (ini = wich_color(color_scale, ini, height < height2 ? 1 : -1));
 }

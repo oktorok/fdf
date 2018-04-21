@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_newpoint.c                                      :+:      :+:    :+:   */
+/*   ft_destroy_image.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/19 17:05:42 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/21 04:43:05 by jagarcia         ###   ########.fr       */
+/*   Created: 2018/04/21 00:57:31 by jagarcia          #+#    #+#             */
+/*   Updated: 2018/04/21 01:52:14 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point ft_newpoint(double x, double y, double z)
+void	ft_print_image(void *mlx)
 {
-	t_point p;
-	p.x = x;
-	p.y = y;
-	p.z = z;
-	return (p);
+	t_mlx *mymlx;
+	mymlx = ((t_mlx *)mlx);
+	mlx_destroy_image(mymlx->ptr, mymlx->img);
 }

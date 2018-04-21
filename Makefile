@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/18 01:46:57 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/21 02:52:54 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,9 @@ MAIN_FUNCS = ft_open_window.c \
 			 ft_new_image.c \
 			 ft_image_addrs.c \
 			 ft_print_image.c \
+			 ft_rotator.c \
+			 vector_operations.c \
+			 ft_isometric.c \
 			 main.c
 
 LIBFT_NAME = /libft.a
