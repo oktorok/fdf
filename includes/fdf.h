@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/21 05:04:54 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/22 04:44:35 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_params
 {
 	t_point		win_size;
 	t_point		true_origen;
-	int			cube_side;
 }				t_params;
 typedef struct	s_mlx
 {
@@ -90,9 +89,12 @@ typedef struct	s_mlx
 	int			*pixel;
 	t_point		vector[3];
 }				t_mlx;
+t_point		ft_resize(t_point p, int zoom);
 t_point		ft_vprodbyscal(t_point p, double n);
 t_point		ft_vadd(t_point p, t_point q);
 t_point		ft_vrest(t_point p, t_point q);
+t_point		ft_vset(t_point *sr, int x, int y, int z);
+double		ft_vnorm(t_point p);
 void		ft_line(t_point *p, void *mlx, int h, int h2);
 t_point 	ft_newpoint(double x, double y, double z);
 void		*ft_open_window(t_mlx *mlx);

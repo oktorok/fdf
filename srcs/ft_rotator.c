@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 17:35:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/21 04:04:54 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/22 04:06:09 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_point	  ft_rotator(t_point rot_pnt, int angle, t_point rot_axi)
 	double	coseno;
 	double	seno;
 
+	if ((rads = ft_vnorm(rot_axi)) != 1)
+		rot_axi = ft_vprodbyscal(rot_axi, 1.0 / rads);
 	rads = dectorad(angle);
 	coseno = 1.0 - cos(rads);
 	seno = sin(rads);

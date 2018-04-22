@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 09:13:39 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/21 04:48:55 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/22 04:23:17 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	color_move(int color, int i, int mask, int *move)
 
 static int	wich_color(int move, int color, int flag)
 {
-	return (0xFFFFFF);
+//	return (0xFFFFFF);
 	int	i;
 	int mask_a;
 	int mask_tmp;

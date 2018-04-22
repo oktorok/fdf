@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/21 05:14:08 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/22 04:25:48 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ void	ft_coder(void *mlx, int code)
 	else if (code == DOWN_ARROW)
 		params->true_origen.y -= MOVE;
 	else if (code == ZOOM_OUT)
-//		params->cube_side -= ZOOM_CUANT;
 	{
-	vector[0] = ft_vprodbyscal(vector[0], 1/ZOOM_CUANT);
-    vector[1] = ft_vprodbyscal(vector[1], 1/ZOOM_CUANT);
-    vector[2] = ft_vprodbyscal(vector[2], 1/ZOOM_CUANT);
+		vector[0] = ft_resize(vector[0], -ZOOM_CUANT);
+		vector[1] = ft_resize(vector[1], -ZOOM_CUANT);
+		vector[2] = ft_resize(vector[2], -ZOOM_CUANT);
 	}
 	if (code == ZOOM_IN)
 	{
-	vector[0] = ft_vprodbyscal(vector[0], ZOOM_CUANT);
-    vector[1] = ft_vprodbyscal(vector[1], ZOOM_CUANT);
-    vector[2] = ft_vprodbyscal(vector[2], ZOOM_CUANT);
+		vector[0] = ft_resize(vector[0], ZOOM_CUANT);
+		vector[1] = ft_resize(vector[1], ZOOM_CUANT);
+		vector[2] = ft_resize(vector[2], ZOOM_CUANT);
 	}
 	else if (code == TURN_1_X)
 	{
