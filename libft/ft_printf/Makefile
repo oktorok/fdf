@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/17 08:11:59 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/22 07:09:55 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra 
 
 MAIN_FUNCS = ft_printf.c \
 			 ft_asprintf.c \
@@ -159,14 +159,14 @@ $(NAME) : $(MAINS_OBJ) $(TYPES_OBJ) $(FORMATS_OBJ) $(MODS_OBJ) $(UTILS_OBJ) $(LI
 	ranlib $(NAME)
 
 $(LIBFT_DIR_OBJ)%.o : $(LIBFT_DIR)%.c
-	$(MAKE) -C $(LIBFT_DIR) --no-print-directory $(@F)
+	$(MAKE) -C $(LIBFT_DIR) objects/$(@F)
 	ar -rs $(NAME) $@ 
 
 $(OBJ_DIR)%.o : $(MAINS_DIR)%.c
 	gcc $(FLAGS) -I$(INCLUDES_DIR) -c $<
 	mkdir -p $(OBJ_DIR)
 	mv -f $(@F) $(OBJ_DIR)
-	ar -rs $(NAME) $@ 
+	ar -rs $(NAME) $@
 
 $(OBJ_DIR)%.o : $(FORMATS_DIR)%.c
 	gcc $(FLAGS) -I$(INCLUDES_DIR) -c $<

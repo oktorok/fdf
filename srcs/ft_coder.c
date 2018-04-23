@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 04:25:48 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/23 03:48:21 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,28 @@ void	ft_coder(void *mlx, int code)
 		vector[1] = ft_rotator(vector[1], ROT, vector[2]);
 	}
 	else if (code == ISOMETRIC)
-		vector = ft_isometric(vector);
-//	else if (code == 9)
+	{
+		ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector, &params);
+		params->proyection = 1;
+	}
+	else if (code == CABINET)
+	{
+		ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector, &params);
+		params->proyection = 2;
+	}
+	else if (code == CAVALIERE)
+	{
+		ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector, &params);
+		params->proyection = 3;
+	}
+	else if (code == CONIC)
+	{
+		ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector, &params);
+		params->proyection = 4;
+	}
 	else if (code == RESET)
-		((t_mlx *)mlx)->params = ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector);
+		ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector, &params);
 	else
 		return ;
-	ft_print_image(mlx);
+	ft_destroy_image(mlx);
 }

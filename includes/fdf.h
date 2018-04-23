@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 04:44:35 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/23 03:49:37 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 /*
  * KEYS
  */
+#ifdef __APPLE__
 #define KEY_RELEASE_EVENT 2
 #define KEY_RELEASE_MASK 1
 #define UP_ARROW /*65362*/ 125
@@ -62,6 +63,28 @@
 #define TURN_2_Z 92
 #define RESET 51
 #define ISOMETRIC 12
+#else
+#define KEY_RELEASE_EVENT 2
+#define KEY_RELEASE_MASK 1
+#define UP_ARROW 65362
+#define LEFT_ARROW 65361
+#define RIGHT_ARROW 65363
+#define DOWN_ARROW 65364
+#define ESCAPE 65307
+#define ZOOM_IN 65451
+#define ZOOM_OUT 65453
+#define TURN_1_X 65431
+#define TURN_2_X 65437
+#define TURN_1_Y 65432
+#define TURN_2_Y 65430
+#define TURN_1_Z 65429
+#define TURN_2_Z 65434
+#define RESET 65288
+#define ISOMETRIC 113
+#define CABINET 119
+#define CAVALIERE 101
+#define CONIC 114
+#endif
 /*
  * KEYS
  */
@@ -78,6 +101,7 @@ typedef struct s_params
 {
 	t_point		win_size;
 	t_point		true_origen;
+	int			proyection;
 }				t_params;
 typedef struct	s_mlx
 {
@@ -102,7 +126,7 @@ int			ft_draw(void *mlx);
 void		ft_point_to_image(t_point point, void *mlx, int color);
 int			*ft_lector(char *filename);
 void		ft_clear(void *mlx);
-t_params	*ft_initialize(int *pixel, t_point vector[3]);
+void		ft_initialize(int *pixel, t_point vector[3], t_params **params);
 void		ft_coder(void *mlx, int code);
 int			ft_get_color(int h, int h2, int cuant, int num);
 void		*ft_new_image(void *mlx);
@@ -110,5 +134,8 @@ char		*ft_image_addrs(void *mlx);
 int			ft_print_image(void *mlx);
 int			ft_destroy_image(void *mlx);
 t_point		ft_rotator(t_point rot_pnt, int angle, t_point rot_axi);
-t_point		*ft_isometric(t_point *v);
+void		ft_isometric(t_point *v);
+void		ft_cavaliere(t_point *v);
+void		ft_cabinet(t_point *v);
+void		ft_conic(t_point *v);
 #endif

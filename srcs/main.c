@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 04:58:30 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/23 00:50:48 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	main(int argn, char **argv)
 	}
 	mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx));
 	mlx->pixel = ft_lector(argv[1]);
-	t_point *vector = mlx->vector;
-	mlx->params = ft_initialize(mlx->pixel, mlx->vector);
+	ft_initialize(mlx->pixel, mlx->vector, &(mlx->params));
 	mlx->ptr = mlx_init();
 	mlx->win = ft_open_window(mlx);
 	mlx_hook(mlx->win, KEY_RELEASE_EVENT, KEY_RELEASE_MASK, key_event, mlx);
