@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:57:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 10:36:06 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 03:45:03 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_destroy_image(void *mlx)
 {
 	t_mlx *mymlx;
+
 	mymlx = ((t_mlx *)mlx);
 	return (mlx_destroy_image(mymlx->ptr, mymlx->img));
 }

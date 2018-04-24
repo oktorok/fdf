@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/23 03:49:55 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/23 21:11:04 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ INCLUDES_MLX = /usr/local/include
 all : $(NAME)
 
 $(NAME) : $(MAINS_OBJ) $(LIBFT_DIR)$(LIBFT_NAME)
-	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(LIBXL) -o $(NAME)
+	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(FLAGS) -o $(NAME)
 
 $(LIBFT_DIR)$(LIBFT_NAME):
 	$(MAKE) -C $(LIBFT_DIR) --no-print-directory

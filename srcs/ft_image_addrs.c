@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 00:44:00 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 07:24:48 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 03:44:45 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_image_addrs(void *mlx)
 	int		bpp;
 	int		endian;
 	int		size_line;
-	
+
 	tmpmlx = (t_mlx *)mlx;
 	bpp = BITS_PER_PIXEL;
 	size_line = tmpmlx->params->win_size.x;

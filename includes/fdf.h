@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/23 03:49:37 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 02:43:32 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 /*
  *COLOR CONF
  */
-#define DEEP_VALUE -5
-#define HIGH_VALUE 10
+#define DEEP_VALUE -15
+#define HIGH_VALUE 15
 #define COLOR_DEEP 0x0000FF
 #define COLOR_HIGH 0xFF0000
 #define COLOR_SCALE 1020 / (HIGH_VALUE-DEEP_VALUE + 1)
@@ -63,6 +63,10 @@
 #define TURN_2_Z 92
 #define RESET 51
 #define ISOMETRIC 12
+#define CABINET 13
+#define CAVALIERE 14
+#define CONIC 15
+
 #else
 #define KEY_RELEASE_EVENT 2
 #define KEY_RELEASE_MASK 1

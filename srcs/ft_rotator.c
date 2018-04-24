@@ -6,13 +6,13 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 17:35:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 04:06:09 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 03:33:55 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double dectorad(int hex)
+static double	dectorad(int hex)
 {
 	double rad;
 
@@ -20,10 +20,10 @@ static double dectorad(int hex)
 	return (rad);
 }
 
-t_point	  ft_rotator(t_point rot_pnt, int angle, t_point rot_axi)
+t_point			ft_rotator(t_point rot_pnt, int angle, t_point rot_axi)
 {
-	t_point rot;
-	double  rads;
+	t_point	rot;
+	double	rads;
 	double	coseno;
 	double	seno;
 

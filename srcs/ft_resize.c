@@ -6,13 +6,13 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 04:06:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/22 04:19:06 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 03:31:57 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point ft_resize(t_point p, int zoom)
+t_point	ft_resize(t_point p, int zoom)
 {
 	t_point vector;
 	double	norm;
