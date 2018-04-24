@@ -6,17 +6,13 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 00:34:23 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 06:25:54 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 00:44:27 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	*ft_new_image(void *mlx)
+void	*ft_new_image(t_mlx *mlx, int x, int y)
 {
-	t_mlx *tmpmlx;
-
-	tmpmlx = (t_mlx *)mlx;
-	return (mlx_new_image(tmpmlx->ptr, tmpmlx->params->win_size.x,
-				tmpmlx->params->win_size.y));
+	return (mlx_new_image(mlx->ptr, x, y));
 }

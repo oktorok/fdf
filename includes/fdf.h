@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 02:43:32 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 01:17:28 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,21 @@ typedef struct	s_point
 }				t_point;
 typedef struct s_params
 {
+	char		*filename;
 	t_point		win_size;
 	t_point		true_origen;
 	int			proyection;
+	t_point		rotated;
+	int			zoomed;
 }				t_params;
 typedef struct	s_mlx
 {
 	void		*ptr;
 	void		*win;
+	void		*img_leg;
 	void		*img;
 	char		*addrs;
+	char		*addrs_leg;
 	t_params	*params;
 	int			*pixel;
 	t_point		vector[3];
@@ -123,20 +128,20 @@ t_point		ft_vadd(t_point p, t_point q);
 t_point		ft_vrest(t_point p, t_point q);
 t_point		ft_vset(t_point *sr, int x, int y, int z);
 double		ft_vnorm(t_point p);
-void		ft_line(t_point *p, void *mlx, int h, int h2);
+void		ft_line(t_point *p, t_mlx *mlx, int h, int h2);
 t_point 	ft_newpoint(double x, double y, double z);
 void		*ft_open_window(t_mlx *mlx);
-int			ft_draw(void *mlx);
-void		ft_point_to_image(t_point point, void *mlx, int color);
+int			ft_draw(t_mlx *mlx);
+void		ft_point_to_image(t_point point, t_mlx *mlx, int color, int legend);
 int			*ft_lector(char *filename);
 void		ft_clear(void *mlx);
 void		ft_initialize(int *pixel, t_point vector[3], t_params **params);
-void		ft_coder(void *mlx, int code);
+void		ft_coder(t_mlx *mlx, int code);
 int			ft_get_color(int h, int h2, int cuant, int num);
-void		*ft_new_image(void *mlx);
-char		*ft_image_addrs(void *mlx);
-int			ft_print_image(void *mlx);
-int			ft_destroy_image(void *mlx);
+void		*ft_new_image(t_mlx *mlx, int x, int y);
+char		*ft_image_addrs(void *img, int size_line);
+int			ft_print_image(t_mlx *mlx, void *img);
+int			ft_destroy_image(t_mlx *mlx, void *img);
 t_point		ft_rotator(t_point rot_pnt, int angle, t_point rot_axi);
 void		ft_isometric(t_point *v);
 void		ft_cavaliere(t_point *v);

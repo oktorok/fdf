@@ -6,17 +6,14 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:57:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 06:30:09 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 01:08:25 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_destroy_image(void *mlx)
+int	ft_destroy_image(t_mlx *mlx, void *img)
 {
-	t_mlx *mymlx;
-
-	mymlx = ((t_mlx *)mlx);
-	mlx_destroy_image(mymlx->ptr, mymlx->img);
+	mlx_destroy_image(mlx->ptr, img);
 	return (0);
 }

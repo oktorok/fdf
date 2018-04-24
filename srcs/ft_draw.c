@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 02:36:01 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 05:15:21 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 00:49:09 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_point	set_pnt(t_mlx *mlx, t_point real_pnt, t_point origen,
 	return (final);
 }
 
-static void		drawer(t_point *sr, int *px, t_point or, void *mlx)
+static void		drawer(t_point *sr, int *px, t_point or, t_mlx *mlx)
 {
 	t_point t[2];
 	int		i;
@@ -55,24 +55,24 @@ static void		drawer(t_point *sr, int *px, t_point or, void *mlx)
 	}
 }
 
-int				ft_draw(void *mlx)
+int				ft_draw(t_mlx *mlx)
 {
 	t_point		origen;
 	int			*pixel;
 	t_point		*vector;
 
-	pixel = ((t_mlx *)mlx)->pixel;
-	origen = ((t_mlx *)mlx)->params->true_origen;
+	pixel = mlx->pixel;
+	origen = mlx->params->true_origen;
 	if (!(vector = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
 		ft_error(NULL);
-	vector[0] = (((t_mlx *)mlx)->vector)[0];
-	vector[1] = (((t_mlx *)mlx)->vector)[1];
-	vector[2] = (((t_mlx *)mlx)->vector)[2];
-	if (((t_mlx *)mlx)->params->proyection == 1)
+	vector[0] = (mlx->vector)[0];
+	vector[1] = (mlx->vector)[1];
+	vector[2] = (mlx->vector)[2];
+	if (mlx->params->proyection == 1)
 		ft_isometric(vector);
-	else if (((t_mlx *)mlx)->params->proyection == 2)
+	else if (mlx->params->proyection == 2)
 		ft_cabinet(vector);
-	else if (((t_mlx *)mlx)->params->proyection == 3)
+	else if (mlx->params->proyection == 3)
 		ft_cavaliere(vector);
 	origen = ft_vrest(origen, ft_vset(vector, pixel[0] / 2, pixel[1] / 2, 0));
 	drawer(vector, pixel + 2, origen, mlx);

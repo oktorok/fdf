@@ -6,17 +6,13 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 01:22:08 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 03:34:09 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 00:46:13 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_print_image(void *mlx)
+int		ft_print_image(t_mlx *mlx, void *img)
 {
-	t_mlx *tmpmlx;
-
-	tmpmlx = (t_mlx *)mlx;
-	return (mlx_put_image_to_window(tmpmlx->ptr,
-				tmpmlx->win, tmpmlx->img, 0, 0));
+	return (mlx_put_image_to_window(mlx->ptr, mlx->win, img, 0, 0));
 }
