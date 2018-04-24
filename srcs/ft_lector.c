@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 02:13:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/02 21:12:03 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 06:57:47 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ void		reallocpixels(int **pixel, int reall_cuan, int act_row, int final)
 	comple_rows = (*pixel)[0] * (*pixel)[1];
 	if (!final)
 	{
-		new_pixel = (int *)ft_memalloc(sizeof(int) *
-				(BUFFER_INT * reall_cuan + 2));
+		if(!(new_pixel = (int *)ft_memalloc(sizeof(int) * (BUFFER_INT *
+		                                                   reall_cuan + 2))))
+			ft_error(NULL);
 		ft_memcpy(new_pixel, *pixel, sizeof(int) * (comple_rows + act_row + 2));
 		ft_memdel((void **)pixel);
 		*pixel = new_pixel;
 	}
 	else
 	{
-		new_pixel = (int *)ft_memalloc(sizeof(int) * (comple_rows + 2));
+		if(!(new_pixel = (int *)ft_memalloc(sizeof(int) * (comple_rows + 2))))
+			ft_error(NULL);
 		ft_memcpy(new_pixel, *pixel, (sizeof(int) * (comple_rows + 2)));
 		ft_memdel((void **)pixel);
 		*pixel = new_pixel;
@@ -39,25 +41,31 @@ void		build_pixels(char *line, int **pixel)
 {
 	int			i;
 	char		**nums;
+	char		**tmp;
 	int			row_len;
 	static int	reall_flag = 1;
 
 	i = 0;
 	row_len = 0;
-	nums = ft_strsplit(line, ' ');
+	if (!(nums = ft_strsplit(line, ' ')))
+		ft_error(NULL);
 	if (!((*pixel)[1]))
 		while (nums[i++])
 			(*pixel)[1]++;
 	i = (*pixel)[1] * (*pixel)[0] + 2;
+	tmp = nums;
 	while (*nums)
 	{
 		if ((*pixel)[0] * (*pixel)[1] + ++row_len > BUFFER_INT * reall_flag)
 			reallocpixels(pixel, ++reall_flag, row_len, 0);
-		(*pixel)[i++] = ft_atoi(*nums++);
+		(*pixel)[i++] = ft_atoi(*nums);
+		free(*nums++);
 	}
+	free(tmp);
 	(*pixel)[0]++;
 	if (row_len != (*pixel)[1])
 		ft_error("Wrong format file input");
+	
 }
 
 int			*ft_lector(char *filename)

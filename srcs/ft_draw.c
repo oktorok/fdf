@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 02:36:01 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 03:53:47 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 05:15:21 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int				ft_draw(void *mlx)
 
 	pixel = ((t_mlx *)mlx)->pixel;
 	origen = ((t_mlx *)mlx)->params->true_origen;
-	vector = (t_point *)ft_memalloc(sizeof(t_point) * 3);
+	if (!(vector = (t_point *)ft_memalloc(sizeof(t_point) * 3)))
+		ft_error(NULL);
 	vector[0] = (((t_mlx *)mlx)->vector)[0];
 	vector[1] = (((t_mlx *)mlx)->vector)[1];
 	vector[2] = (((t_mlx *)mlx)->vector)[2];

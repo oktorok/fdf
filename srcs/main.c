@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 03:33:07 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/24 07:02:41 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ static int	key_event(int code, void *mlx)
 	if (code == ESCAPE)
 	{
 		mlx_destroy_window(((t_mlx *)mlx)->ptr, ((t_mlx *)mlx)->win);
+		free(((t_mlx *)mlx)->params);
+		free(((t_mlx *)mlx)->pixel);
+		free(((t_mlx *)mlx));
 		exit(1);
 	}
 	ft_coder(mlx, code);
-	((t_mlx *)mlx)->img = ft_new_image(mlx);
+	if (!(((t_mlx *)mlx)->img = ft_new_image(mlx)))
+		ft_error(NULL);
 	((t_mlx *)mlx)->addrs = ft_image_addrs(mlx);
 	ft_draw(mlx);
 	ft_print_image(mlx);
@@ -37,13 +41,18 @@ int			main(int argn, char **argv)
 		ft_printf("Usage: fdf file_path\n");
 		return (-1);
 	}
-	mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx));
+	if (!(mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx))))
+		ft_error(NULL);
 	mlx->pixel = ft_lector(argv[1]);
 	ft_initialize(mlx->pixel, mlx->vector, &(mlx->params));
 	mlx->ptr = mlx_init();
-	mlx->win = ft_open_window(mlx);
+	if (!(mlx->win = ft_open_window(mlx)))
+		ft_error(NULL);
+	if (!(((t_mlx *)mlx)->img = ft_new_image(mlx)))
+		ft_error(NULL);
+	((t_mlx *)mlx)->addrs = ft_image_addrs(mlx);
+	ft_draw(mlx);
 	mlx_hook(mlx->win, KEY_RELEASE_EVENT, KEY_RELEASE_MASK, key_event, mlx);
 	mlx_loop(mlx->ptr);
-	ft_putchar('A');
 	return (0);
 }

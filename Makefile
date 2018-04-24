@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/23 21:11:04 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/24 04:48:43 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,13 @@
 
 NAME = fdf
 
-FLAGS = -lmlx -framework OpenGL -framework AppKit
+UNAME := $(shell uname)
 
-LIBXL = -lm -L/usr/lib/X11 -lmlx -lXext -lX11
-
+ifeq ($(UNAME), Linux)
+	FLAGS = -lm -L/usr/lib/X11 -lmlx -lXext -lX11
+else
+	FLAGS = -lmlx -framework OpenGL -framework AppKit
+endif
 MAIN_FUNCS = ft_open_window.c \
 			 ft_draw.c \
 			 ft_line.c \
