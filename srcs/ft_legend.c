@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 02:35:27 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 05:54:19 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 08:25:13 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,33 +78,10 @@ static void		place_keys(t_mlx *mlx)
 	mlx_string_put(mlx->ptr, mlx->win, 150, 390, 0xFFFFFF, "R");
 }
 
-static void		wall(t_mlx *mlx, int x, int y)
-{
-	int	*addrs_leg;
-	int *addrs;
-	int line_size;
-	int	i;
-
-	i = 0;
-	line_size = (int)mlx->params->win_size.x;
-	addrs_leg = (int *)mlx->addrs_leg;
-	addrs = (int *)mlx->addrs;
-	while (i < x * y)
-	{
-		addrs_leg[i] = addrs[(i % x) + i / x * line_size];
-		i++;
-	}
-}
-
 void			ft_legend(t_mlx *mlx)
 {
 	char	*filename;
 
-	if (!(mlx->img_leg = ft_new_image(mlx, LEG_X, LEG_Y)))
-		ft_error(NULL);
-	mlx->addrs_leg = ft_image_addrs(mlx->img_leg, LEG_X);
-	wall(mlx, LEG_X, LEG_Y);
-	ft_print_image(mlx, mlx->img_leg);
 	filename = ft_strrchr(mlx->params->filename, '/') + 1;
 	mlx_string_put(mlx->ptr, mlx->win, 100, 10, 0xE72512, "DATA");
 	place_info(mlx, filename);

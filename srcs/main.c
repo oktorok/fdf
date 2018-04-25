@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 07:23:39 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 08:25:47 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	key_event(int code, void *mlx)
 	mymlx = (t_mlx *)mlx;
 	if (code == ESCAPE)
 	{
-		ft_destroy_image(mymlx, mymlx->img_leg);
 		ft_destroy_image(mymlx, mymlx->img);
 		mlx_destroy_window(mymlx->ptr, mymlx->win);
 		free(mymlx->params);

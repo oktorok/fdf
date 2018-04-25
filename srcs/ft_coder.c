@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 07:29:22 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 08:27:55 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,4 @@ void			ft_coder(t_mlx *mlx, int code)
 		return ;
 	if (mlx->img)
 		ft_destroy_image(mlx, mlx->img);
-	if (mlx->img_leg)
-		ft_destroy_image(mlx, mlx->img_leg);
 }

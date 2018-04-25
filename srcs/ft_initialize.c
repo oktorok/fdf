@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 18:25:08 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 01:14:36 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 07:59:36 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		ft_initialize(int *pixel, t_point *vector, t_params **params)
 	if (!*params)
 		if (!(*params = (t_params *)ft_memalloc(sizeof(t_params))))
 			ft_error(NULL);
-	(*params)->win_size = ft_newpoint(1000, 1000, 0.0);
+	(*params)->win_size = ft_newpoint(1920, 1080, 0.0);
 	(*params)->true_origen = ft_newpoint((*params)->win_size.x / 2,
 							(*params)->win_size.x / 2, 0.0);
 	(*params)->proyection = 0;

@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 07:40:04 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 08:25:30 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,8 @@ typedef struct		s_mlx
 {
 	void			*ptr;
 	void			*win;
-	void			*img_leg;
 	void			*img;
 	char			*addrs;
-	char			*addrs_leg;
 	t_params		*params;
 	int				*pixel;
 	t_point			vector[3];
