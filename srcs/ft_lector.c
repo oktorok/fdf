@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 02:13:09 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 06:57:47 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 07:27:54 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void		reallocpixels(int **pixel, int reall_cuan, int act_row, int final)
 	comple_rows = (*pixel)[0] * (*pixel)[1];
 	if (!final)
 	{
-		if(!(new_pixel = (int *)ft_memalloc(sizeof(int) * (BUFFER_INT *
-		                                                   reall_cuan + 2))))
+		if (!(new_pixel = (int *)ft_memalloc(sizeof(int) * (BUFFER_INT *
+							reall_cuan + 2))))
 			ft_error(NULL);
 		ft_memcpy(new_pixel, *pixel, sizeof(int) * (comple_rows + act_row + 2));
 		ft_memdel((void **)pixel);
@@ -29,7 +29,7 @@ void		reallocpixels(int **pixel, int reall_cuan, int act_row, int final)
 	}
 	else
 	{
-		if(!(new_pixel = (int *)ft_memalloc(sizeof(int) * (comple_rows + 2))))
+		if (!(new_pixel = (int *)ft_memalloc(sizeof(int) * (comple_rows + 2))))
 			ft_error(NULL);
 		ft_memcpy(new_pixel, *pixel, (sizeof(int) * (comple_rows + 2)));
 		ft_memdel((void **)pixel);
@@ -62,10 +62,8 @@ void		build_pixels(char *line, int **pixel)
 		free(*nums++);
 	}
 	free(tmp);
-	(*pixel)[0]++;
 	if (row_len != (*pixel)[1])
 		ft_error("Wrong format file input");
-	
 }
 
 int			*ft_lector(char *filename)
@@ -88,6 +86,7 @@ int			*ft_lector(char *filename)
 		else if (!flag)
 			break ;
 		build_pixels(*line, &pixel);
+		pixel[0]++;
 		ft_strdel(line);
 	}
 	reallocpixels(&pixel, 0, 0, 1);

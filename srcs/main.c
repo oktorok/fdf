@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 03:23:23 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 07:23:39 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	key_event(int code, void *mlx)
 		exit(1);
 	}
 	ft_coder(mymlx, code);
-	if (!(mymlx->img = ft_new_image(mymlx, mymlx->params->win_size.x, mymlx->params->win_size.y)))
+	if (!(mymlx->img = ft_new_image(mymlx, mymlx->params->win_size.x,
+					mymlx->params->win_size.y)))
 		ft_error(NULL);
 	mymlx->addrs = ft_image_addrs(mymlx->img, mymlx->params->win_size.x);
 	ft_draw(mymlx);

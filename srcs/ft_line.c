@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 16:57:26 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 01:03:59 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 07:30:26 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			ft_line(t_point *p, t_mlx *mlx, int h, int h2)
 	while (++i <= dp.x + 1)
 	{
 		ft_point_to_image(ft_newpoint(tmp.x, tmp.y, 0), mlx,
-		                  ft_get_color(h, h2, dp.x + 1, i), 0);
+				ft_get_color(h, h2, dp.x + 1, i));
 		numerator += dp.y;
 		tmp.x += numerator >= dp.x ? increments[0] : increments[2];
 		tmp.y += numerator >= dp.x ? increments[1] : increments[3];

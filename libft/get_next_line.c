@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 12:53:43 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/03/31 00:39:20 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 07:42:39 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int			cheker(char *tmp, char **m, char **line)
 	}
 	else if (!(tl = ft_strnew(ft_strlen(tmp) - ft_strlen(nw) + 1)))
 		return (-1);
-
 	ft_strncat(tl, tmp, ft_strlen(tmp) - ft_strlen(nw));
 	ft_strdel(line);
 	*line = tl;
@@ -56,7 +55,7 @@ static int			mikeler(char **mikel, char **line)
 	return (josep);
 }
 
-static int					reader(char *tmp, int fd, char **line, char **mikel)
+static int			reader(char *tmp, int fd, char **line, char **mikel)
 {
 	int		gonz;
 
@@ -77,7 +76,7 @@ static int					reader(char *tmp, int fd, char **line, char **mikel)
 	return (gonz);
 }
 
-static void				newmikel(int fd, t_fd **mikel, t_fd **aux)
+static void			newmikel(int fd, t_fd **mikel, t_fd **aux)
 {
 	if (!*mikel)
 	{

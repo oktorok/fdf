@@ -6,14 +6,14 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 03:23:45 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 07:29:22 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 static void		zoom_move(int code, t_point *vector, t_params *params)
-{	
+{
 	if (code == LEFT_ARROW)
 		params->true_origen.x -= MOVE;
 	else if (code == UP_ARROW)
@@ -24,7 +24,7 @@ static void		zoom_move(int code, t_point *vector, t_params *params)
 		params->true_origen.y -= MOVE;
 	else if (code == ZOOM_OUT)
 	{
-		params->zoomed -= ZOOM_CUANT;		
+		params->zoomed -= ZOOM_CUANT;
 		vector[0] = ft_resize(vector[0], -ZOOM_CUANT);
 		vector[1] = ft_resize(vector[1], -ZOOM_CUANT);
 		vector[2] = ft_resize(vector[2], -ZOOM_CUANT);
