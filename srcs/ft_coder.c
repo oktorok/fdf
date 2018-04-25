@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 01:16:59 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 03:23:45 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		turn_1(int code, t_point *vector, t_params *params)
 	}
 	else if (code == TURN_1_Z)
 	{
-		params->rotated.x -= ROT;
+		params->rotated.z -= ROT;
 		vector[0] = ft_rotator(vector[0], -ROT, vector[2]);
 		vector[1] = ft_rotator(vector[1], -ROT, vector[2]);
 	}
@@ -70,13 +70,13 @@ static void		turn_2(int code, t_point *vector, t_params *params)
 	}
 	else if (code == TURN_2_Y)
 	{
-		params->rotated.x += ROT;
+		params->rotated.y += ROT;
 		vector[0] = ft_rotator(vector[0], ROT, vector[1]);
 		vector[2] = ft_rotator(vector[2], ROT, vector[1]);
 	}
 	else if (code == TURN_2_Z)
 	{
-		params->rotated.x += ROT;
+		params->rotated.z += ROT;
 		vector[0] = ft_rotator(vector[0], ROT, vector[2]);
 		vector[1] = ft_rotator(vector[1], ROT, vector[2]);
 	}

@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 01:17:28 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/25 05:05:09 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 #define ESCAPE /*65307*/ 53
 #define ZOOM_IN /*122*/ 69
 #define ZOOM_OUT /*120*/ 78
-#define TURN_1_X 84
+#define TURN_1_X 87
 #define TURN_2_X 91
 #define TURN_1_Y 86
 #define TURN_2_Y 88
@@ -94,6 +94,8 @@
  */
 #define BITS_PER_PIXEL 32
 #define ENDIAN 0
+#define LEG_X 310
+#define LEG_Y 400
 #define BUFFER_INT 1000
 typedef struct	s_point
 {
@@ -122,6 +124,7 @@ typedef struct	s_mlx
 	int			*pixel;
 	t_point		vector[3];
 }				t_mlx;
+void		ft_legend(t_mlx *mlx);
 t_point		ft_resize(t_point p, int zoom);
 t_point		ft_vprodbyscal(t_point p, double n);
 t_point		ft_vadd(t_point p, t_point q);

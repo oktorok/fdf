@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/24 04:48:43 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/25 02:39:50 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ MAIN_FUNCS = ft_open_window.c \
 			 ft_conic.c \
 			 ft_destroy_image.c \
 			 ft_resize.c \
+			 ft_legend.c \
 			 main.c
 
 LIBFT_NAME = /libft.a
