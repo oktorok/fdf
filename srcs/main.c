@@ -6,13 +6,40 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/26 07:08:49 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 08:15:40 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	key_event(int code, void *mlx)
+static void		check_command(int argn, char **argv, int comm[2])
+{
+	int i;
+
+	comm[0] = 0;
+	comm[1] = 0;
+	if (argn == 1 || argn > 7)
+		ft_error(USAGE);
+	i = 2;
+	while (argv[i])
+	{
+		if (argv[i][0] == '-')
+		{
+			if (argv[i][1] == 'i' && argv[i + 1])
+				comm[0] = i + 1;
+			else if (argv[i][1] == 'd' && argv[i + 1] && argv[i + 2] &&
+					ft_isdigit(argv[i + 1][0]) && ft_isdigit(argv[i + 2][0]))
+				comm[1] = i++ + 1;
+			else
+				ft_error(USAGE);
+			i += 2;
+		}
+		else
+			ft_error(USAGE);
+	}
+}
+
+static int		key_event(int code, void *mlx)
 {
 	t_mlx *mymlx;
 
@@ -37,20 +64,20 @@ static int	key_event(int code, void *mlx)
 	return (0);
 }
 
-int			main(int argn, char **argv)
+int				main(int argn, char **argv)
 {
 	t_mlx		*mlx;
+	int			comm[2];
 
-	if (argn != 2)
-	{
-		ft_printf("Usage: fdf file_path\n");
-		return (-1);
-	}
+	check_command(argn, argv, comm);
 	if (!(mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx))))
 		ft_error(NULL);
 	mlx->pixel = ft_lector(argv[1]);
-	ft_initialize(mlx->vector, &(mlx->params));
+	ft_initialize(mlx->vector, &(mlx->params), argv, comm[1]);
 	mlx->params->filename = argv[1];
+	mlx->params->image_name = NULL;
+	if (comm[0])
+		mlx->params->image_name = argv[comm[0]];
 	mlx->ptr = mlx_init();
 	if (!(mlx->win = ft_open_window(mlx)))
 		ft_error(NULL);

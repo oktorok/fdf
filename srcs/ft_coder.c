@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/26 05:48:08 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 07:59:37 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void		turn_2(int code, t_point *vector, t_params *params)
 
 static void		proyection(int code, t_params *params, t_mlx *mlx)
 {
-	ft_initialize(mlx->vector, &params);
+	ft_initialize(mlx->vector, &params, NULL, 0);
 	if (code == ISOMETRIC)
 		params->proyection = 1;
 	else if (code == CABINET)
@@ -113,7 +113,7 @@ void			ft_coder(t_mlx *mlx, int code)
 			code == CONIC)
 		proyection(code, params, mlx);
 	else if (code == RESET)
-		ft_initialize(mlx->vector, &params);
+		ft_initialize(mlx->vector, &params, NULL, 0);
 	else
 		return ;
 	if (mlx->img)
