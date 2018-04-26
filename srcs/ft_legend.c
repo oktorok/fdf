@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 02:35:27 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/26 05:25:23 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 07:09:57 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		check_angle(double *angle)
 	return ((int)*angle);
 }
 
-static void		place_info(t_mlx *mlx, char *filename)
+static void		place_info(t_mlx *mlx, char *filename, char **info)
 {
 	mlx_string_put(mlx->ptr, mlx->win, 15, 30, 0xFFFFFF, "FILENAME:   ");
 	mlx_string_put(mlx->ptr, mlx->win, 15, 50, 0xFFFFFF, "ANGLE X:    ");
@@ -31,14 +31,14 @@ static void		place_info(t_mlx *mlx, char *filename)
 	mlx_string_put(mlx->ptr, mlx->win, 15, 110, 0xFFFFFF, "ZOOM:       ");
 	mlx_string_put(mlx->ptr, mlx->win, 15, 130, 0xFFFFFF, "PROYECTION: ");
 	mlx_string_put(mlx->ptr, mlx->win, 130, 30, 0xFFFFFF, filename);
-	mlx_string_put(mlx->ptr, mlx->win, 130, 50, 0xFFFFFF,
-			ft_itoa(check_angle(&mlx->params->rotated.x)));
-	mlx_string_put(mlx->ptr, mlx->win, 130, 70, 0xFFFFFF,
-			ft_itoa(check_angle(&mlx->params->rotated.y)));
-	mlx_string_put(mlx->ptr, mlx->win, 130, 90, 0xFFFFFF,
-			ft_itoa(check_angle(&mlx->params->rotated.z)));
-	mlx_string_put(mlx->ptr, mlx->win, 130, 110, 0xFFFFFF,
-			ft_itoa((int)mlx->params->zoomed));
+	mlx_string_put(mlx->ptr, mlx->win, 130, 50, 0xFFFFFF, info[0]);
+	free(info[0]);
+	mlx_string_put(mlx->ptr, mlx->win, 130, 70, 0xFFFFFF, info[1]);
+	free(info[1]);
+	mlx_string_put(mlx->ptr, mlx->win, 130, 90, 0xFFFFFF, info[2]);
+	free(info[2]);
+	mlx_string_put(mlx->ptr, mlx->win, 130, 110, 0xFFFFFF, info[3]);
+	free(info[3]);
 	if (mlx->params->proyection == 0)
 		mlx_string_put(mlx->ptr, mlx->win, 130, 130, 0xFFFFFF, "NONE");
 	else if (mlx->params->proyection == 1)
@@ -81,9 +81,16 @@ static void		place_keys(t_mlx *mlx)
 void			ft_legend(t_mlx *mlx)
 {
 	char	*filename;
+	char	**info;
 
 	filename = ft_strrchr(mlx->params->filename, '/') + 1;
 	mlx_string_put(mlx->ptr, mlx->win, 100, 10, 0xE72512, "DATA");
-	place_info(mlx, filename);
+	info = (char **)malloc(sizeof(char *) * 4);
+	info[0] = ft_itoa(check_angle(&mlx->params->rotated.x));
+	info[1] = ft_itoa(check_angle(&mlx->params->rotated.y));
+	info[2] = ft_itoa(check_angle(&mlx->params->rotated.z));
+	info[3] = ft_itoa((int)mlx->params->zoomed);
+	place_info(mlx, filename, info);
+	free(info);
 	place_keys(mlx);
 }
