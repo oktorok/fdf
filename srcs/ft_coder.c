@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 23:33:16 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 08:27:55 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 05:48:08 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		zoom_move(int code, t_point *vector, t_params *params)
 		params->true_origen.x += MOVE;
 	else if (code == DOWN_ARROW)
 		params->true_origen.y -= MOVE;
-	else if (code == ZOOM_OUT)
+	else if (code == ZOOM_OUT && params->zoomed)
 	{
 		params->zoomed -= ZOOM_CUANT;
 		vector[0] = ft_resize(vector[0], -ZOOM_CUANT);
@@ -84,26 +84,15 @@ static void		turn_2(int code, t_point *vector, t_params *params)
 
 static void		proyection(int code, t_params *params, t_mlx *mlx)
 {
+	ft_initialize(mlx->vector, &params);
 	if (code == ISOMETRIC)
-	{
-		ft_initialize(mlx->pixel, ((t_mlx *)mlx)->vector, &params);
 		params->proyection = 1;
-	}
 	else if (code == CABINET)
-	{
-		ft_initialize(mlx->pixel, ((t_mlx *)mlx)->vector, &params);
 		params->proyection = 2;
-	}
 	else if (code == CAVALIERE)
-	{
-		ft_initialize(mlx->pixel, ((t_mlx *)mlx)->vector, &params);
 		params->proyection = 3;
-	}
 	else if (code == CONIC)
-	{
-		ft_initialize(mlx->pixel, ((t_mlx *)mlx)->vector, &params);
 		params->proyection = 4;
-	}
 }
 
 void			ft_coder(t_mlx *mlx, int code)
@@ -124,9 +113,12 @@ void			ft_coder(t_mlx *mlx, int code)
 			code == CONIC)
 		proyection(code, params, mlx);
 	else if (code == RESET)
-		ft_initialize(((t_mlx *)mlx)->pixel, ((t_mlx *)mlx)->vector, &params);
+		ft_initialize(mlx->vector, &params);
 	else
 		return ;
 	if (mlx->img)
+	{
 		ft_destroy_image(mlx, mlx->img);
+		mlx_clear_window(mlx->ptr, mlx->win);
+	}
 }

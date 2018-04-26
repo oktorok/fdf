@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 06:18:31 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 08:25:30 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 05:46:06 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int					ft_draw(t_mlx *mlx);
 void				ft_point_to_image(t_point point, t_mlx *mlx, int color);
 int					*ft_lector(char *filename);
 void				ft_clear(void *mlx);
-void				ft_initialize(int *pix, t_point v[3], t_params **par);
+void				ft_initialize(t_point v[3], t_params **par);
 void				ft_coder(t_mlx *mlx, int code);
 int					ft_get_color(int h, int h2, int cuant, int num);
 void				*ft_new_image(t_mlx *mlx, int x, int y);

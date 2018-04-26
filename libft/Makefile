@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 21:23:52 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/22 07:09:28 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/26 05:31:42 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,7 @@ $(NAME): $(OBJ)
 	@ranlib $(NAME)
 
 $(OBJ_DIR)%.o : %.c
-	@gcc -Wall -Wextra -Iincludes -c $<
+	@gcc -Wall -Wextra -Werror -Iincludes -c $<
 	@mkdir -p $(OBJ_DIR)
 	@mv -f $(@F) $(OBJ_DIR)
 	@ar rc $(NAME) $@

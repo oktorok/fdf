@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 05:17:40 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 08:25:47 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 05:50:59 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			main(int argn, char **argv)
 	if (!(mlx = (t_mlx *)ft_memalloc(sizeof(t_mlx))))
 		ft_error(NULL);
 	mlx->pixel = ft_lector(argv[1]);
-	ft_initialize(mlx->pixel, mlx->vector, &(mlx->params));
+	ft_initialize(mlx->vector, &(mlx->params));
 	mlx->params->filename = argv[1];
 	mlx->ptr = mlx_init();
 	if (!(mlx->win = ft_open_window(mlx)))

@@ -6,16 +6,17 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 02:36:01 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/25 08:19:43 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 05:49:58 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		limit(t_point p)
+static int		limit(t_point *p, t_point size)
 {
-	if (p.x >= 1920 || p.x <= 0 || p.y < 0 || p.y >= 1080)
-		return (0) ;
+	if ((p[0].x >= size.x || p[0].x <= 0 || p[0].y < 0 || p[0].y >= size.y) &&
+			(p[1].x >= size.x || p[1].x <= 0 || p[1].y < 0 || p[1].y >= size.y))
+		return (0);
 	return (1);
 }
 
@@ -43,11 +44,11 @@ static void		drawer(t_point *sr, int *px, t_point or, t_mlx *mlx)
 		t[0] = set_pnt(mlx, ft_newpoint(i, j, px[i * px[-1] + j]), or, sr);
 		t[1] = set_pnt(mlx, ft_newpoint(i + 1, j, px[(i + 1) * px[-1] + j]),
 				or, sr);
-		if (i + 1 < px[-2] && (limit(t[1]) || limit(t[0])))
+		if (i + 1 < px[-2] && (limit(t, mlx->params->win_size)))
 			ft_line(t, mlx, px[i * px[-1] + j], px[(i + 1) * px[-1] + j]);
 		t[1] = set_pnt(mlx, ft_newpoint(i, j + 1, px[i * px[-1] + j + 1]),
 				or, sr);
-		if (j + 1 < px[-1] && (limit(t[1]) || limit(t[0])))
+		if (j + 1 < px[-1] && (limit(t, mlx->params->win_size)))
 			ft_line(t, mlx, px[i * px[-1] + j], px[i * px[-1] + j + 1]);
 		if (j + 1 >= px[-1])
 			i++;

@@ -6,7 +6,7 @@
 /*   By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 04:06:18 by jagarcia          #+#    #+#             */
-/*   Updated: 2018/04/24 03:31:57 by jagarcia         ###   ########.fr       */
+/*   Updated: 2018/04/26 05:22:49 by jagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 t_point	ft_resize(t_point p, int zoom)
 {
 	t_point vector;
-	double	norm;
 
-	norm = ft_vnorm(p);
-	vector = ft_vprodbyscal(p, zoom / norm);
+	vector = ft_vprodbyscal(p, zoom / ft_vnorm(p));
 	p = ft_vadd(p, vector);
 	return (p);
 }

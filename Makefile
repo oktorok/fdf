@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 17:20:08 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/25 02:39:50 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/26 05:31:26 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ ifeq ($(UNAME), Linux)
 else
 	FLAGS = -lmlx -framework OpenGL -framework AppKit
 endif
+
+CFLAGS = -Wall -Wextra -Werror
+
 MAIN_FUNCS = ft_open_window.c \
 			 ft_draw.c \
 			 ft_line.c \
@@ -76,7 +79,7 @@ $(LIBFT_DIR)$(LIBFT_NAME):
 	$(MAKE) -C $(LIBFT_DIR) --no-print-directory
 
 $(OBJ_DIR)%.o : $(MAINS_DIR)%.c $(HEADER_PATH)
-	gcc -c -I $(INCLUDES_DIR) $<
+	gcc $(CFLAGS) -c -I $(INCLUDES_DIR) $<
 	mkdir -p $(OBJ_DIR)
 	mv -f $(@F) $(OBJ_DIR)
 
