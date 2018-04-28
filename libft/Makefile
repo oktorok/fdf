@@ -6,7 +6,7 @@
 #    By: jagarcia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 21:23:52 by jagarcia          #+#    #+#              #
-#    Updated: 2018/04/26 05:31:42 by jagarcia         ###   ########.fr        #
+#    Updated: 2018/04/28 09:44:12 by jagarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,9 +103,11 @@ SRC = ft_isascii.c \
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 
+FT_PRINTF = libftprintf.a
+
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(FT_PRINTF)
 	@ranlib $(NAME)
 
 $(OBJ_DIR)%.o : %.c
@@ -124,6 +126,6 @@ fclean: clean
 re:	fclean
 	@make
 
-ft_printf: $(NAME)
-	$(MAKE) -C ft_printf re
+$(FT_PRINTF): $(NAME)
+	$(MAKE) -C ft_printf
 	mv ./ft_printf/libftprintf.a .
