@@ -19,7 +19,7 @@ UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 	FLAGS = -lm -L/usr/lib/X11 -lmlx -lXext -lX11
 else
-	FLAGS = -lmlx -framework OpenGL -framework AppKit
+	FLAGS = -Lminilibx/ -lmlx -framework OpenGL -framework AppKit
 endif
 
 CFLAGS = -Wall -Wextra -Werror
@@ -76,6 +76,7 @@ $(NAME) : $(MAINS_OBJ) $(LIBFT_DIR)$(LIBFT_NAME)
 	gcc $(OBJ) -L $(LIBFT_DIR) -l$(LIBFT_ABREV) -lftprintf -I $(INCLUDES_DIR) $(FLAGS) -o $(NAME)
 
 $(LIBFT_DIR)$(LIBFT_NAME):
+	$(MAKE) -C minilibx/
 	$(MAKE) -C $(LIBFT_DIR) --no-print-directory
 
 $(OBJ_DIR)%.o : $(MAINS_DIR)%.c $(HEADER_PATH)

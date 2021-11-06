@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
-# include <mlx.h>
+# include "../minilibx/mlx.h"
 # include <errno.h>
 
 /*
